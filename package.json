@@ -1,0 +1,16 @@
+{
+  "name": "48-project-phase-1-part-a-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vipin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.9.5"
+  }
+}

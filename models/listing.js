@@ -1,0 +1,39 @@
+const mongoose = require('mongoose'); //mongoose for MongoDB
+
+
+
+const listingSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+    },
+    image: {
+            filename:{
+                type:String,
+                default:'listingimage',
+            },
+            url:{
+                type:String,
+                default: "https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2VhJTIwYmVhY2h8ZW58MHx8MHx8fDA%3D",
+        set: (v) => v === "" ? "https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2VhJTIwYmVhY2h8ZW58MHx8MHx8fDA%3D"
+            : v,
+
+            },
+    },
+    price: {
+        type: Number,
+    },
+    location: {
+        type: String,
+    },
+    country: {
+        type: String,
+    }
+});
+
+
+const Listing = mongoose.model("Listing",listingSchema);
+module.exports = Listing;
