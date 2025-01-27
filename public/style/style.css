@@ -1,5 +1,5 @@
 
-
+/* **************************NavBar Start********************* */
 /* //navbar custom style */
 .custom-navbar{
     height:70px;;
@@ -16,3 +16,73 @@
     font-size: 2rem ; /* Adjust as needed */
     vertical-align: middle;
 }
+
+/* **************************NavBar End********************* */
+
+
+
+
+
+
+
+
+
+/* **************************Footer Start********************* */
+footer {
+    background-color: #f7f7f7; /* Light gray background */
+    padding: 20px;
+    font-size: 14px;
+    border-top: 1px solid #ddd; /* Light border at the top */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Distribute content evenly */
+    align-items: center; /* Vertically center items */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    max-width: 1200px; /* Optional: Set a maximum width */
+    margin: 0 auto; /* Center the content */
+}
+
+.footer-left {
+    display: flex;
+    gap: 10px; /* Space between left items */
+}
+
+.footer-right {
+    display: flex;
+    gap: 20px; /* Space between right items */
+    align-items: center;
+}
+
+.footer-right a {
+    text-decoration: none;
+    color: #333; /* Dark gray text color */
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start; /* Align to the left */
+        text-align: center;
+    }
+
+    .footer-right{
+        margin-top: 10px;
+    }
+}
+
+/* **************************Footer End********************* */
+
+
