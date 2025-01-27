@@ -1,25 +1,98 @@
-<!-- //boilerplate ejs file. -->
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
 
 <body>
-    <h1>Edit Listing</h1>
+  <div class="container my-5">
     
-<form method="POST" action="/listings/<%=listing._id%>?_method=PUT">
-    <input type="text" name="listing[title]" value="<%=listing.title%>">
-    <br>
-    <br>
-    <textarea type="text" name="listing[description]"><%=listing.description%></textarea>
-    <br>
-    <br>
-    <input type="number" name="listing[price]" value="<%=listing.price%>" >
-    <br>
-    <br>
-    <input type="text" name="listing[location]" value="<%=listing.location%>">
-    <br>
-    <br>
-    <input type="text" name="listing[country]" value="<%=listing.country%>">
-    <br>
-    <br>
-    <button type="submit">Create </button>
-</form>
+
+    <!-- Image at the top center -->
+    <% if (listing.image && listing.image.url) { %>
+      <div class="text-center mb-4">
+        <img src="<%= listing.image.url %>" alt="Listing Image" class="img-fluid rounded shadow-sm" style="max-height: 400px; width: auto;">
+      </div>
+    <% } %>
+
+    <h1 class="text-center mb-4">Edit Listing</h1>
+    
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="p-4 shadow rounded bg-light">
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Listing Title <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[title]" 
+          id="title" 
+          class="form-control" 
+          value="<%= listing.title %>" 
+          required>
+      </div>
+
+      <!-- Image URL Field -->
+    <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input 
+          type="text" 
+          name="listing[image]" 
+          id="image" 
+          class="form-control" 
+          value="<%= listing.image ? listing.image.url : '' %>">
+      </div>
+      
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+        <textarea 
+          name="listing[description]" 
+          id="description" 
+          class="form-control" 
+          rows="4" 
+          required><%= listing.description %></textarea>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (in Rupees) <span class="text-danger">*</span></label>
+        <input 
+          type="number" 
+          name="listing[price]" 
+          id="price" 
+          class="form-control" 
+          value="<%= listing.price %>" 
+          required>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-3">
+        <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[location]" 
+          id="location" 
+          class="form-control" 
+          value="<%= listing.location %>" 
+          required>
+      </div>
+
+      <!-- Country -->
+      <div class="mb-3">
+        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[country]" 
+          id="country" 
+          class="form-control" 
+          value="<%= listing.country %>" 
+          required>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success btn-lg">Update Listing</button>
+      </div>
+    </form>
+
+    <!-- Back to Listings Link -->
+    <div class="text-center mt-4">
+      <a href="/listings" class="btn btn-outline-secondary">Back to Listings</a>
+    </div>
+  </div>
 </body>
