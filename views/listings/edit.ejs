@@ -1,98 +1,57 @@
 <% layout("/layouts/boilerplate") %>
 
-<body>
+<body class="bg-light">
+
   <div class="container my-5">
-    
+    <h1 class="text-center mb-4 text-primary">Edit Listing</h1>
 
-    <!-- Image at the top center -->
-    <% if (listing.image && listing.image.url) { %>
-      <div class="text-center mb-4">
-        <img src="<%= listing.image.url %>" alt="Listing Image" class="img-fluid rounded shadow-sm" style="max-height: 400px; width: auto;">
-      </div>
-    <% } %>
+    <!-- Edit listing form -->
+    <div class="card shadow-lg border-0" style="border-radius: 15px; background-color: #f7f7f7;">
+      <div class="card-body">
 
-    <h1 class="text-center mb-4">Edit Listing</h1>
-    
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="p-4 shadow rounded bg-light">
-      <!-- Title -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Listing Title <span class="text-danger">*</span></label>
-        <input 
-          type="text" 
-          name="listing[title]" 
-          id="title" 
-          class="form-control" 
-          value="<%= listing.title %>" 
-          required>
-      </div>
+        <!-- Image URL -->
+        <div class="form-group">
+          <label for="image-url" class="text-dark"><i class="bi bi-image text-primary"></i> Image URL (Optional)</label>
+          <input type="text" name="listing[image]" id="image-url" class="form-control" value="<%= listing.image ? listing.image.url : '' %>" placeholder="Enter image URL (Optional)">
+        </div>
 
-      <!-- Image URL Field -->
-    <div class="mb-3">
-        <label for="image" class="form-label">Image URL</label>
-        <input 
-          type="text" 
-          name="listing[image]" 
-          id="image" 
-          class="form-control" 
-          value="<%= listing.image ? listing.image.url : '' %>">
-      </div>
-      
-      <!-- Description -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-        <textarea 
-          name="listing[description]" 
-          id="description" 
-          class="form-control" 
-          rows="4" 
-          required><%= listing.description %></textarea>
-      </div>
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title" class="text-dark"><strong>*</strong> Title</label>
+          <input type="text" name="listing[title]" id="title" class="form-control" value="<%= listing.title %>" placeholder="Enter title" required>
+        </div>
 
-      <!-- Price -->
-      <div class="mb-3">
-        <label for="price" class="form-label">Price (in Rupees) <span class="text-danger">*</span></label>
-        <input 
-          type="number" 
-          name="listing[price]" 
-          id="price" 
-          class="form-control" 
-          value="<%= listing.price %>" 
-          required>
-      </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description" class="text-dark"><strong>*</strong> Description</label>
+          <textarea name="listing[description]" id="description" class="form-control" rows="4" placeholder="Enter description" required><%= listing.description %></textarea>
+        </div>
 
-      <!-- Location -->
-      <div class="mb-3">
-        <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
-        <input 
-          type="text" 
-          name="listing[location]" 
-          id="location" 
-          class="form-control" 
-          value="<%= listing.location %>" 
-          required>
-      </div>
+        <!-- Price -->
+        <div class="form-group">
+          <label for="price" class="text-dark"><strong>*</strong> Price per night (INR)</label>
+          <input type="number" name="listing[price]" id="price" class="form-control" value="<%= listing.price %>" placeholder="Enter price" required>
+        </div>
 
-      <!-- Country -->
-      <div class="mb-3">
-        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
-        <input 
-          type="text" 
-          name="listing[country]" 
-          id="country" 
-          class="form-control" 
-          value="<%= listing.country %>" 
-          required>
-      </div>
+        <!-- Location -->
+        <div class="form-group">
+          <label for="location" class="text-dark"><strong>*</strong> Location</label>
+          <input type="text" name="listing[location]" id="location" class="form-control" value="<%= listing.location %>" placeholder="Enter location" required>
+        </div>
 
-      <!-- Submit Button -->
-      <div class="d-grid">
-        <button type="submit" class="btn btn-success btn-lg">Update Listing</button>
-      </div>
-    </form>
+        <!-- Country -->
+        <div class="form-group">
+          <label for="country" class="text-dark"><strong>*</strong> Country</label>
+          <input type="text" name="listing[country]" id="country" class="form-control" value="<%= listing.country %>" placeholder="Enter country" required>
+        </div>
 
-    <!-- Back to Listings Link -->
-    <div class="text-center mt-4">
-      <a href="/listings" class="btn btn-outline-secondary">Back to Listings</a>
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-warning btn-lg shadow-sm px-4 py-2 rounded-pill mt-3">Update Listing</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  
 </body>

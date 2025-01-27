@@ -1,14 +1,16 @@
 <% layout("/layouts/boilerplate") %>
 
-<body>
+<body class="bg-light">
+
   <div class="container my-5">
-    <h1 class="text-center mb-4">Listing Details</h1>
+    <h1 class="text-center mb-4 text-primary">Listing Details</h1>
 
     <!-- Listing details container -->
-    <div class="card shadow-sm">
+    <div class="card shadow-lg border-0" style="border-radius: 15px; background-color: #f7f7f7;">
       <div class="card-body">
+
         <!-- Title -->
-        <h2 class="card-title mb-3"><%= listing.title %></h2>
+        <h2 class="card-title mb-3 text-dark"><%= listing.title %></h2>
 
         <!-- Price -->
         <h3 class="card-subtitle mb-3 text-muted">
@@ -16,26 +18,30 @@
         </h3>
 
         <!-- Description -->
-        <p class="card-text mb-4"><%= listing.description %></p>
+        <p class="card-text mb-4 text-dark"><strong>Description:</strong> <%= listing.description %></p>
 
         <!-- Location -->
-        <p class="card-text"><strong>Location:</strong> <%= listing.location %></p>
+        <p class="card-text text-dark">
+          <i class="bi bi-geo-alt-fill text-primary"></i> <strong>Location:</strong> <%= listing.location %>
+        </p>
 
         <!-- Country -->
-        <p class="card-text"><strong>Country:</strong> <%= listing.country %></p>
+        <p class="card-text text-dark">
+          <i class="bi bi-flag-fill text-success"></i> <strong>Country:</strong> <%= listing.country %>
+        </p>
 
         <!-- Image -->
         <% if (listing.image && listing.image.url) { %>
           <div class="text-center mb-4">
-            <img src="<%= listing.image.url %>" alt="Listing Image" class="img-fluid rounded shadow-sm" style="max-height: 300px; width: auto;">
+            <img src="<%= listing.image.url %>" alt="Listing Image" class="img-fluid rounded shadow-lg" style="max-height: 350px; width: auto; border-radius: 10px;">
           </div>
         <% } %>
 
         <!-- Edit and Delete buttons -->
         <div class="d-flex justify-content-between">
-          <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning btn-lg shadow-sm px-4 py-2 rounded-pill text-dark hover-shadow">Edit</a>
           <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger btn-lg shadow-sm px-4 py-2 rounded-pill text-white hover-shadow">Delete</button>
           </form>
         </div>
       </div>
@@ -43,7 +49,9 @@
 
     <!-- Back to Listings Link -->
     <div class="text-center mt-4">
-      <a href="/listings" class="btn btn-outline-secondary">Back to Listings</a>
+      <a href="/listings" class="btn btn-outline-primary btn-lg shadow-sm">Back to Listings</a>
     </div>
   </div>
+
+  
 </body>

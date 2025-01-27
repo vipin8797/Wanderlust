@@ -1,0 +1,22 @@
+/* <!-- Adding custom CSS for hover effect and icons --> */
+  
+    .form-group label {
+      font-size: 1.1rem;
+    }
+    .form-control {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+    .btn-lg {
+      font-size: 1.2rem;
+    }
+    .text-dark {
+      color: #333 !important;
+    }
+    .card-body {
+      padding: 2rem;
+    }
+    i {
+      margin-right: 10px;
+    }
+
