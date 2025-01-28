@@ -9,6 +9,7 @@ const listingSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+        required:true,
     },
     image: {
             filename:{
@@ -25,12 +26,15 @@ const listingSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
+        required:true,
     },
     location: {
         type: String,
+        required:true,
     },
     country: {
         type: String,
+        required:true,
     }
 });
 

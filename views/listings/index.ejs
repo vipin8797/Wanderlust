@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>
+<!-- //BoilerPlate file with Header and Footer. -->
+<% layout("/layouts/boilerplate")%>
+
 <body>
-  <h1>All Listings</h1>
-  <form action="/listings/new" method="GET">
-      <button type="submit">Create New Listing</button> 
-    </form> 
-
-    <ul>
-<%for(listing of allListings){%>
-    <li><a href="/listings/<%=listing._id%>"><%=listing.title%></a></li>
-<%}%>
-</ul>
-
+  <div class="container my-4">
+    <h1 class="mb-4">All Listings</h1>
+    <div class="row">
+      <% for (listing of allListings) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img 
+              src="<%= listing.image.url %>" 
+              class="card-img-top" 
+              alt="<%= listing.image.filename %>">
+            <div class="card-body">
+              <h5 class="card-title text-truncate"><%= listing.title %></h5>
+              <p class="price">₹<%= listing.price %> per night</p>
+              <a href="/listings/<%= listing._id %>" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
 </body>
-</html>

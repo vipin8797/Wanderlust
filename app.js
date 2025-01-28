@@ -4,7 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose'); //mongoose for MongoDB
 const path = require('path');  //Path for ejs templates
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-const Listing = require('./models/listing');
+const Listing = require('./models/listing'); //Our Listing Model
+engine = require('ejs-mate'); //ejsMate for boilerplate layout
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -20,6 +21,7 @@ app.set('views engine','ejs'); //view engine for ejs.
 app.set("views",path.join(__dirname,"views")); //default folder for ejs template views.
 app.use(express.static(path.join(__dirname,"public"))); //default public folder for static fiels
 app.use(methodOverride('_method')); //method overide
+app.engine('ejs', engine); //Using ejsMate in oure porject
 
 //*********************** Routes start************************* */
 
@@ -78,7 +80,7 @@ app.get('/listings/:id/edit',async(req,res)=>{
       try{
         const listing = await Listing.findById(id);
         res.render('listings/edit.ejs',{listing});
-        console.log(listing);
+        
       }catch(err){
            console.log(err);
       }

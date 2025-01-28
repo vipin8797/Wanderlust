@@ -1,0 +1,20 @@
+
+/* **************************NavBar Start********************* */
+/* //navbar custom style */
+.custom-navbar{
+    height:70px;;
+}
+
+/* //navbar options  */
+.nav-link{
+    color :#222222 !important;
+}
+
+/* //navbar icom extra style */
+.custom-icon {
+    color: #fa4d41;
+    font-size: 2rem ; /* Adjust as needed */
+    vertical-align: middle;
+}
+
+/* **************************NavBar End********************* */

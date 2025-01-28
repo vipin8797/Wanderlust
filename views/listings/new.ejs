@@ -1,30 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanderLust</title>
-</head>
+<!-- //boilerplate ejs file. -->
+<% layout("/layouts/boilerplate")%>
+
+<% layout("/layouts/boilerplate")%>
+
 <body>
-<h1>Create new Listing</h1>
-    
-<form method="POST" action="/listings">
-    <input type="text" name="listing[title]" placeholder="enter title">
-    <br>
-    <br>
-    <textarea type="text" name="listing[description]" ></textarea>
-    <br>
-    <br>
-    <input type="number" name="listing[price]" >
-    <br>
-    <br>
-    <input type="text" name="listing[location]">
-    <br>
-    <br>
-    <input type="text" name="listing[country]">
-    <br>
-    <br>
-    <button type="submit">Create </button>
-</form>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Create New Listing</h1>
+    <form method="POST" action="/listings" class="p-4 shadow rounded bg-light">
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Listing Title <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[title]" 
+          id="title" 
+          class="form-control" 
+          placeholder="Enter title" 
+          required>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+        <textarea 
+          name="listing[description]" 
+          id="description" 
+          class="form-control" 
+          rows="4" 
+          placeholder="Enter description" 
+          required></textarea>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (in Rupees) <span class="text-danger">*</span></label>
+        <input 
+          type="number" 
+          name="listing[price]" 
+          id="price" 
+          class="form-control" 
+          placeholder="Enter price" 
+          required>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-3">
+        <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[location]" 
+          id="location" 
+          class="form-control" 
+          placeholder="Enter location" 
+          required>
+      </div>
+
+      <!-- Country -->
+      <div class="mb-3">
+        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+        <input 
+          type="text" 
+          name="listing[country]" 
+          id="country" 
+          class="form-control" 
+          placeholder="Enter country" 
+          required>
+      </div>
+
+      <!-- Image URL -->
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL (Optional)</label>
+        <input 
+          type="url" 
+          name="listing[image]" 
+          id="image" 
+          class="form-control" 
+          placeholder="Enter image URL">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Create Listing</button>
+      </div>
+    </form>
+    <p class="text-danger mt-3"><small>* All fields except the image URL are mandatory.</small></p>
+  </div>
 </body>
-</html>

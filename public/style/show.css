@@ -1,0 +1,30 @@
+
+/* //Show.ejs file styling. */
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  .text-dark {
+    color: #333 !important;
+  }
+  .btn-lg {
+    font-size: 1.2rem;
+  }
+  .card-body {
+    padding: 2rem;
+  }
+  .card-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  .card-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .card-title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  i {
+    margin-right: 10px;
+  }
