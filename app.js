@@ -6,8 +6,9 @@ const path = require('path');  //Path for ejs templates
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
 const Listing = require('./models/listing'); //Our Listing Model
 engine = require('ejs-mate'); //ejsMate for boilerplate layout
-const ExpressError = require('./utils/ExpressError');
-const wrapAsync = require('./utils/wrapAsync');
+const ExpressError = require('./utils/ExpressError'); //ExpressError for custom Error class
+const wrapAsync = require('./utils/wrapAsync'); //wrapAsync for default erro handling minddleware
+const {listingJoiSchema} = require('./joiSchema');
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -26,6 +27,23 @@ app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
 
 //*********************** Routes start************************* */
+
+
+//joi validation middleware
+const joiValidate = (req, res, next) => {
+    // Validating Joi Schema
+    const { error } = listingJoiSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+        // Extracting error messages properly
+        let errMsg = error.details.map(el => el.message).join(", ");
+        return next(new ExpressError(404, errMsg)); // Use `return` to prevent further execution
+    }
+    next();
+};
+
+    
+
+
 
 //Roote route
 app.get('/', (req, res) => {
@@ -47,10 +65,9 @@ app.get('/listings/new', (req, res) => {
 })
 
 //post for new listing
-app.post('/listings', wrapAsync(async (req, res,next) => {
-    const { listing } = req.body;
-       
-        const newListing = new Listing(listing);
+app.post('/listings',joiValidate, wrapAsync(async (req, res,next) => {
+   const { listing } = req.body;
+    const newListing = new Listing(listing);
         await newListing.save();
         res.redirect('/listings');
    
@@ -60,7 +77,7 @@ app.post('/listings', wrapAsync(async (req, res,next) => {
 
 
 //show route
-app.get('/listings/:id', wrapAsync(async (req, res) => {
+app.get('/listings/:id',wrapAsync(async (req, res) => {
     const { id } = req.params;
 
         const listing = await Listing.findById(id);
@@ -80,7 +97,7 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 
 
 
-app.put('/listings/:id', wrapAsync(async (req, res) => {
+app.put('/listings/:id',joiValidate, wrapAsync(async (req, res) => {
     const { id } = req.params;
 
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
@@ -108,9 +125,10 @@ app.all('*',(req,res,next)=>{
 // Default Error Handling Middleware
 app.use((err, req, res, next) => {
     const { status = 500, message = "Something went wrong" } = err;
-    console.error("Error Message:", err.message);
-    console.error("Error Type:", err.name);
-    console.log("App is not crashed..");
+  //to print error in console.  
+    // console.error("Error Message:", err.message);
+    // console.error("Error Type:", err.name);
+    // console.log("App is not crashed..");
     // Render error.ejs and pass error details
     res.status(status).render("listings/error.ejs", { status, message });
 });
