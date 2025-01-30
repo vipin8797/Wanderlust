@@ -6,7 +6,7 @@
     <h1 class="text-center mb-4 text-primary">Edit Listing</h1>
 
     <!-- Edit Listing Form -->
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT " class="needs-validation" novalidate>
       <div class="card shadow-lg border-0" style="border-radius: 15px; background-color: #f7f7f7;">
         <div class="card-body">
 
@@ -20,30 +20,35 @@
           <div class="form-group">
             <label for="title" class="text-dark"><strong>*</strong> Title</label>
             <input type="text" name="listing[title]" id="title" class="form-control" value="<%= listing.title %>" placeholder="Enter title" required>
+            <div class="invalid-feedback">Title can't be empty</div>
           </div>
 
           <!-- Description -->
           <div class="form-group">
             <label for="description" class="text-dark"><strong>*</strong> Description</label>
             <textarea name="listing[description]" id="description" class="form-control" rows="4" placeholder="Enter description" required><%= listing.description %></textarea>
+            <div class="invalid-feedback">description can't be empty</div>
           </div>
 
           <!-- Price -->
           <div class="form-group">
             <label for="price" class="text-dark"><strong>*</strong> Price per night (INR)</label>
             <input type="number" name="listing[price]" id="price" class="form-control" value="<%= listing.price %>" placeholder="Enter price" required>
+            <div class="invalid-feedback">price can't be empty</div>
           </div>
 
           <!-- Location -->
           <div class="form-group">
             <label for="location" class="text-dark"><strong>*</strong> Location</label>
             <input type="text" name="listing[location]" id="location" class="form-control" value="<%= listing.location %>" placeholder="Enter location" required>
+            <div class="invalid-feedback">location can't be empty</div>
           </div>
 
           <!-- Country -->
           <div class="form-group">
             <label for="country" class="text-dark"><strong>*</strong> Country</label>
             <input type="text" name="listing[country]" id="country" class="form-control" value="<%= listing.country %>" placeholder="Enter country" required>
+            <div class="invalid-feedback">country can't be empty</div>
           </div>
 
           <!-- Submit Button -->
@@ -55,5 +60,7 @@
       </div>
     </form>
   </div>
+   <!-- //js for bootstrap form validation -->
+   <script src="/scripts/formValidationScript.js"></script>
 
 </body>
