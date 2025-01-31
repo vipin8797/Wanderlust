@@ -23,3 +23,17 @@
 | Joi Schema Validation    | 30-Jan             | Joi            |
 | JoiValidation middleware | 30-Jan             |                |  
   
+# dev3 added relational db and their operations.
+
+
+| Content                | Created & Practiced | Libraries Used |
+|------------------------|--------------------|----------------|
+| listing Deletion       | 31-Jan             | Mongoose       |
+| post middleware        | 31-Jan             | Method_override|
+| creating Review model  | 31-Jan             | Express        |
+| review form            | 31-Jan             | EJS Mate       |
+| Joi validation         | 31-Jan             | Joi            |
+| Render Reviews         | 31-Jan             |                |  
+| Deleting Reviews rel   | 31-Jan             |                |
+| Deleting Listing rel   | 31-Jan             |                |  
+  
