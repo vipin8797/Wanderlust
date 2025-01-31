@@ -51,7 +51,38 @@
     <div class="text-center mt-4">
       <a href="/listings" class="btn btn-outline-primary btn-lg shadow-sm">Back to Listings</a>
     </div>
+
+    <!-- Review Form Section -->
+    <div class="mt-5">
+      <h3 class="text-center text-dark mb-4">Leave a Review</h3>
+      
+      <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto " style="max-width: 600px;" >
+        
+        <!-- Rating Selection -->
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating (1 to 5)</label>
+          <select class="form-select" id="rating" name="review[rating]" required>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+
+        <!-- Review Text Area -->
+        <div class="mb-3">
+          <label for="reviewText" class="form-label">Your Review</label>
+          <textarea class="form-control" id="reviewText" name="review[comment]" rows="4" ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm px-4 py-2 rounded-pill">Submit Review</button>
+        </div>
+      </form>
+    </div>
+
   </div>
 
-  
 </body>

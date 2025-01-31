@@ -8,7 +8,8 @@ const Listing = require('./models/listing'); //Our Listing Model
 engine = require('ejs-mate'); //ejsMate for boilerplate layout
 const ExpressError = require('./utils/ExpressError'); //ExpressError for custom Error class
 const wrapAsync = require('./utils/wrapAsync'); //wrapAsync for default erro handling minddleware
-const {listingJoiSchema} = require('./joiSchema');
+const {listingJoiSchema} = require('./joiSchema');// listingJoiSchema for joi validation.
+const Review = require('./models/reviews'); //Review model
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -116,6 +117,55 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 }));
 
 
+
+// //Reviews Routes starts from here
+// app.post('/listings/:id/reviews',wrapAsync(async(req,res,next)=>{
+//     const{id} = req.params;
+//     const{review} = req.body;
+//      let listing = await Listing.findById(id);
+//    
+//     let newReview = new Review({
+//         comment:review.comment,
+//         rating:review.rating,
+//         created_At: Date.now(),
+//     });
+
+//     await newReview.save();
+   
+//    let push=  listing.reviews.push(newReview);
+//    console.log(push);
+//      res.redirect(`/listings/${id}`);
+
+// }));
+
+app.post('/listings/:id/reviews', wrapAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const { review } = req.body;
+    
+    let listing = await Listing.findById(id);
+    // Create a new review
+    let newReview = new Review({
+        comment: review.comment,
+        rating: review.rating,
+        created_At: Date.now(),
+      });
+      
+      await newReview.save();
+      listing.reviews.push(newReview);
+      await listing.save();
+      res.redirect(`/listings/${id}`);
+    }));
+  
+    
+   
+
+   
+  
+    
+  
+
+
+
 //invalid route path
 app.all('*',(req,res,next)=>{
     next(new ExpressError(404,'Page not found'));
@@ -131,6 +181,8 @@ app.use((err, req, res, next) => {
     // console.log("App is not crashed..");
     // Render error.ejs and pass error details
     res.status(status).render("listings/error.ejs", { status, message });
+    
+    //console.log(err);
 });
 
 

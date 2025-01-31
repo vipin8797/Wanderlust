@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); //mongoose for MongoDB
-const{Review} = require('./reviews');
+const Review = require('./reviews');
 
 
 const listingSchema = new mongoose.Schema({
@@ -36,11 +36,11 @@ const listingSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    reviews:[
-        {type:mongoose.Schema.Types.ObjectId,
-            ref:'Review',
-        }
-    ],
+    reviews: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Review' }
+      ],
+      
+      
 });
 
 
