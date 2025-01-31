@@ -56,7 +56,7 @@
     <div class="mt-5">
       <h3 class="text-center text-dark mb-4">Leave a Review</h3>
       
-      <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto " style="max-width: 600px;" >
+      <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto needs-validation" style="max-width: 600px;"  novalidate>
         
         <!-- Rating Selection -->
         <div class="mb-3">
@@ -73,7 +73,8 @@
         <!-- Review Text Area -->
         <div class="mb-3">
           <label for="reviewText" class="form-label">Your Review</label>
-          <textarea class="form-control" id="reviewText" name="review[comment]" rows="4" ></textarea>
+          <textarea class="form-control" id="reviewText" name="review[comment]" rows="4" required ></textarea>
+          <div class="invalid-feedback">please share you review.</div>
         </div>
 
         <!-- Submit Button -->
@@ -84,5 +85,6 @@
     </div>
 
   </div>
-
+<!-- //js for bootstrap form validation -->
+<script src="/scripts/formValidationScript.js"></script>
 </body>
