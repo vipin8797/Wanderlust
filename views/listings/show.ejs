@@ -51,7 +51,64 @@
     <div class="text-center mt-4">
       <a href="/listings" class="btn btn-outline-primary btn-lg shadow-sm">Back to Listings</a>
     </div>
+
+    <!-- Review Form Section -->
+    <div class="mt-5">
+      <h3 class="text-center text-dark mb-4">Leave a Review</h3>
+      
+      <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto needs-validation" style="max-width: 600px;"  novalidate>
+        
+        <!-- Rating Selection -->
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating (1 to 5)</label>
+          <select class="form-select" id="rating" name="review[rating]" required>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+
+        <!-- Review Text Area -->
+        <div class="mb-3">
+          <label for="reviewText" class="form-label">Your Review</label>
+          <textarea class="form-control" id="reviewText" name="review[comment]" rows="4" required ></textarea>
+          <div class="invalid-feedback">Please share your review.</div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm px-4 py-2 rounded-pill">Submit Review</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Reviews Section -->
+    <% if (listing.reviews && listing.reviews.length > 0) { %>
+      <h3 class="text-center text-dark mb-4 mt-5">Reviews</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% listing.reviews.forEach(review => { %>
+          <div class="col">
+            <div class="card h-100 shadow-sm border-0" style="border-radius: 10px;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-dark">Rating: <%= review.rating %></h5>
+                <p class="card-text text-dark"><%= review.comment %></p>
+                <small class="text-muted">Created At: <%= review.created_At.toLocaleString() %></small>
+                <!-- Delete Review Button -->
+                <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mt-3">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p class="text-center text-muted">No reviews yet.</p>
+    <% } %>
   </div>
 
-  
+  <!-- JS for Bootstrap form validation -->
+  <script src="/scripts/formValidationScript.js"></script>
 </body>

@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+//listing Joi Schema.
 const listingJoiSchema = Joi.object({
     listing: Joi.object({
         title: Joi.string().required().messages({
@@ -32,4 +33,29 @@ const listingJoiSchema = Joi.object({
     }).required()
 });
 
-module.exports = {listingJoiSchema};
+
+
+
+//Review Joi Schema.
+const reviewJoiSchema = Joi.object({
+    review: Joi.object({
+        comment: Joi.string().required(),
+        rating: Joi.number().min(0).max(5).required(),
+        created_At: Joi.date().default(() => new Date()), // Correct way: Only the function
+    }).required()
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {listingJoiSchema,reviewJoiSchema};

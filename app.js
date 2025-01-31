@@ -8,7 +8,8 @@ const Listing = require('./models/listing'); //Our Listing Model
 engine = require('ejs-mate'); //ejsMate for boilerplate layout
 const ExpressError = require('./utils/ExpressError'); //ExpressError for custom Error class
 const wrapAsync = require('./utils/wrapAsync'); //wrapAsync for default erro handling minddleware
-const {listingJoiSchema} = require('./joiSchema');
+const {listingJoiSchema, reviewJoiSchema} = require('./joiSchema');// listingJoiSchema for joi validation.
+const Review = require('./models/reviews'); //Review model
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -29,8 +30,8 @@ app.engine('ejs', engine); //Using ejsMate in oure porject
 //*********************** Routes start************************* */
 
 
-//joi validation middleware
-const joiValidate = (req, res, next) => {
+//joi listing validation middleware
+const joiListingValidate = (req, res, next) => {
     // Validating Joi Schema
     const { error } = listingJoiSchema.validate(req.body, { abortEarly: false });
     if (error) {
@@ -41,6 +42,16 @@ const joiValidate = (req, res, next) => {
     next();
 };
 
+//joi review validation middleware
+const joiReviewValidate = (req,res,next) =>{
+    //validation Joi Schema
+    const{error} = reviewJoiSchema.validate(req.body,{abortEarly:false});
+    if(error){
+        let errMsg = error.details.map(el=>el.message).join(", ");
+        return next(new ExpressError(404, errMsg));
+    }
+    next();
+};
     
 
 
@@ -65,7 +76,7 @@ app.get('/listings/new', (req, res) => {
 })
 
 //post for new listing
-app.post('/listings',joiValidate, wrapAsync(async (req, res,next) => {
+app.post('/listings',joiListingValidate, wrapAsync(async (req, res,next) => {
    const { listing } = req.body;
     const newListing = new Listing(listing);
         await newListing.save();
@@ -80,7 +91,7 @@ app.post('/listings',joiValidate, wrapAsync(async (req, res,next) => {
 app.get('/listings/:id',wrapAsync(async (req, res) => {
     const { id } = req.params;
 
-        const listing = await Listing.findById(id);
+        const listing = await Listing.findById(id).populate('reviews');
         res.render('listings/show.ejs', { listing });
     
 }));
@@ -97,7 +108,7 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 
 
 
-app.put('/listings/:id',joiValidate, wrapAsync(async (req, res) => {
+app.put('/listings/:id',joiListingValidate, wrapAsync(async (req, res) => {
     const { id } = req.params;
 
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
@@ -116,6 +127,44 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 }));
 
 
+
+
+
+// //Reviews Routes starts from here
+app.post('/listings/:id/reviews',joiReviewValidate, wrapAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const { review } = req.body;
+    
+    let listing = await Listing.findById(id);
+    // Create a new review
+    let newReview = new Review({
+        comment: review.comment,
+        rating: review.rating,
+        created_At: Date.now(),
+      });
+      
+      await newReview.save();
+      listing.reviews.push(newReview);
+      await listing.save();
+      res.redirect(`/listings/${id}`);
+    }));
+  
+ //Review Delete Route
+ app.delete('/listings/:id/reviews/:reviewId',wrapAsync(async(req,res,next)=>{
+      const{id,reviewId} = req.params;
+      await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
+      await Review.findByIdAndDelete(reviewId);
+      res.redirect(`/listings/${id}`);
+ }));   
+   
+
+   
+  
+    
+  
+
+
+
 //invalid route path
 app.all('*',(req,res,next)=>{
     next(new ExpressError(404,'Page not found'));
@@ -131,6 +180,8 @@ app.use((err, req, res, next) => {
     // console.log("App is not crashed..");
     // Render error.ejs and pass error details
     res.status(status).render("listings/error.ejs", { status, message });
+    
+    //console.log(err);
 });
 
 

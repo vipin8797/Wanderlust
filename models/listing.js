@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'); //mongoose for MongoDB
-
+const Review = require('./reviews'); //required for mongoose post middleware to delete reviews while listing is deleted.
 
 
 const listingSchema = new mongoose.Schema({
@@ -35,6 +35,20 @@ const listingSchema = new mongoose.Schema({
     country: {
         type: String,
         required:true,
+    },
+    reviews: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Review' }
+      ],
+      
+      
+});
+
+
+
+//post middleware for findOneAndDelete
+listingSchema.post('findOneAndDelete',async(listing)=>{
+    if(listing.reviews){
+    await Review.deleteMany({_id:{$in:listing.reviews}});
     }
 });
 
