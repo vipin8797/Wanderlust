@@ -36,4 +36,21 @@
 | Render Reviews         | 31-Jan             |                |  
 | Deleting Reviews rel   | 31-Jan             |                |
 | Deleting Listing rel   | 31-Jan             |                |  
+
+
+# dev4 set ExpressRouter to add listings and review routes in separate folder, router is prebuilt in Express.
+
+| Content                      | Created & Practiced | Libraries Used |
+|------------------------------|--------------------|----------------|
+| What is Router               | 4-Feb             | Mongoose       |
+| Using Express Router         | 4-Feb             | Method_override|
+| Restructuring Listings routes| 4-Feb             | Express        |
+| Restructuring Reviews routes | 4-Feb             | EJS Mate       |
+| Web Cookies                  | 4-Feb             | Joi            |
+| Sending Cookies              | 4-Feb             | Cookie-Parser  |  
+| Cookie Parser                | 4-Feb             |                |
+|Signed Cookies                | 4-Feb             |                |  
+  
+
+
   
