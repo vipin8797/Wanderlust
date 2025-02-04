@@ -10,6 +10,9 @@ const ExpressError = require('./utils/ExpressError'); //ExpressError for custom 
 const wrapAsync = require('./utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const {listingJoiSchema, reviewJoiSchema} = require('./joiSchema');// listingJoiSchema for joi validation.
 const Review = require('./models/reviews'); //Review model
+const listingRoutes = require('./routes/listingRoutes');//listings routes
+const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
+
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -27,148 +30,38 @@ app.use(express.static(path.join(__dirname, "public"))); //default public folder
 app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
 
-//*********************** Routes start************************* */
 
 
-//joi listing validation middleware
-const joiListingValidate = (req, res, next) => {
-    // Validating Joi Schema
-    const { error } = listingJoiSchema.validate(req.body, { abortEarly: false });
-    if (error) {
-        // Extracting error messages properly
-        let errMsg = error.details.map(el => el.message).join(", ");
-        return next(new ExpressError(404, errMsg)); // Use `return` to prevent further execution
-    }
-    next();
-};
-
-//joi review validation middleware
-const joiReviewValidate = (req,res,next) =>{
-    //validation Joi Schema
-    const{error} = reviewJoiSchema.validate(req.body,{abortEarly:false});
-    if(error){
-        let errMsg = error.details.map(el=>el.message).join(", ");
-        return next(new ExpressError(404, errMsg));
-    }
-    next();
-};
-    
 
 
+
+//********************************** Routes **************************
+//********************************** Routes **************************
 
 //Roote route
 app.get('/', (req, res) => {
     res.send("server is working");
 })
 
-//index route
-app.get('/listings', wrapAsync(async (req, res) => {
-    
-        const allListings = await Listing.find({});
-        res.render('listings/index.ejs', { allListings });
-    
-}));
+ //Listings Route
+ app.use('/listings',listingRoutes); 
+ //Reviews Routes
+ app.use('/listings/:id/reviews',reviewRoutes);
 
-
-//Get Req for new listing
-app.get('/listings/new', (req, res) => {
-    res.render('listings/new.ejs');
-})
-
-//post for new listing
-app.post('/listings',joiListingValidate, wrapAsync(async (req, res,next) => {
-   const { listing } = req.body;
-    const newListing = new Listing(listing);
-        await newListing.save();
-        res.redirect('/listings');
-   
-}))
-
-
-
-
-//show route
-app.get('/listings/:id',wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-        const listing = await Listing.findById(id).populate('reviews');
-        res.render('listings/show.ejs', { listing });
-    
-}));
-
-
-//Get for Edit
-app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    const listing = await Listing.findById(id);
-    res.render('listings/edit.ejs', { listing });
-}));
-
-
-
-
-app.put('/listings/:id',joiListingValidate, wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
-    res.redirect('/listings');
-
-}));
-
-
-//Delete Route
-app.delete('/listings/:id', wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    await Listing.findByIdAndDelete(id);
-    res.redirect('/listings');
-
-}));
-
-
-
-
-
-// //Reviews Routes starts from here
-app.post('/listings/:id/reviews',joiReviewValidate, wrapAsync(async (req, res, next) => {
-    const { id } = req.params;
-    const { review } = req.body;
-    
-    let listing = await Listing.findById(id);
-    // Create a new review
-    let newReview = new Review({
-        comment: review.comment,
-        rating: review.rating,
-        created_At: Date.now(),
-      });
-      
-      await newReview.save();
-      listing.reviews.push(newReview);
-      await listing.save();
-      res.redirect(`/listings/${id}`);
-    }));
-  
- //Review Delete Route
- app.delete('/listings/:id/reviews/:reviewId',wrapAsync(async(req,res,next)=>{
-      const{id,reviewId} = req.params;
-      await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
-      await Review.findByIdAndDelete(reviewId);
-      res.redirect(`/listings/${id}`);
- }));   
-   
-
-   
-  
-    
-  
-
-
-
-//invalid route path
+ //invalid route path
 app.all('*',(req,res,next)=>{
     next(new ExpressError(404,'Page not found'));
 })
+
+
+ //********************************** Routes **************************
+ //********************************** Routes **************************
+
+  
+
+
+
+
 
 
 // Default Error Handling Middleware
@@ -188,8 +81,7 @@ app.use((err, req, res, next) => {
 
 
 
-//*********************** Routes end************************* */
-
+//sever staring code.
 const port = 3000;
 main().then(() => {
     console.log(`connectd to: ${DB} DB`);
