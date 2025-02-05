@@ -12,6 +12,9 @@ const {listingJoiSchema, reviewJoiSchema} = require('./joiSchema');// listingJoi
 const Review = require('./models/reviews'); //Review model
 const listingRoutes = require('./routes/listingRoutes');//listings routes
 const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
+const session = require('express-session'); //express sessions for authentication and flash-messages.
+const flash = require('connect-flash'); // to flash succes and failure messages
+
 
 
 //mongoose connection to DB
@@ -21,7 +24,7 @@ async function main() {
 }
 
 
-//Using dependencies
+//*****************Using dependencies
 const app = express();
 app.use(express.urlencoded({ extended: true })); //Post requers parser
 app.set('views engine', 'ejs'); //view engine for ejs.
@@ -29,9 +32,29 @@ app.set("views", path.join(__dirname, "views")); //default folder for ejs templa
 app.use(express.static(path.join(__dirname, "public"))); //default public folder for static fiels
 app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
+//using Express-Sessions
+app.use(session({
+    secret: "secrete",
+    resave: false,            // No need to save session if no change
+    saveUninitialized: true,  // Save session even if it's new (but not modified)
+    cookie: {
+        secure: false,        // for localhost, true for HTTPS
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,  // Expiry time (7 days)
+        maxAge: 7 * 24 * 60 * 60 * 1000,  // Session max age (7 days)
+        httpOnly: true,       // Can't be accessed via JavaScript (prevents XSS attacks)
+    },
+}));
+app.use(flash()); //using connect-flash after sessions.
+//*****************Using dependencies
 
 
-
+// Flash global middleware
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.warning = req.flash('warning');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 
 
