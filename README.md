@@ -53,4 +53,20 @@
   
 
 
+# dev5 implements Express-Sessions and connect-flash messages later used for authentication.
+
+
+| Content                      | Created & Practiced | Libraries Used |
+|------------------------------|--------------------|----------------|
+| Stateless & Statefull        | 5-Feb             | Mongoose       |
+| Express-sessions             | 5-Feb             | Method_override|
+| Stroing using sessions       | 5-Feb             | Express        |
+| Using connect-flash          | 5-Feb             | EJS Mate       |
+| Using res.locals             | 5-Feb             | Joi            |
+| implementing session in proj | 5-Feb             | Cookie-Parser  |  
+| Cookie in sessions           | 5-Feb             |Express-Sessions|
+|implementing flash in proj    | 5-Feb             |                |
+|including flash.ejs in boilerplate.ejs| 5-Feb     |                |  
+  
+
   
