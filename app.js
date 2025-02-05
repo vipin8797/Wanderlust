@@ -34,10 +34,15 @@ app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
 //using Express-Sessions
 app.use(session({
-    secret:"secrete",
-    resave:false, //agli request me koi change ni hai to cookie data save mat karo
-    saveUninitialized:true,
-    cookie:{secure:false},
+    secret: "secrete",
+    resave: false,            // No need to save session if no change
+    saveUninitialized: true,  // Save session even if it's new (but not modified)
+    cookie: {
+        secure: false,        // for localhost, true for HTTPS
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,  // Expiry time (7 days)
+        maxAge: 7 * 24 * 60 * 60 * 1000,  // Session max age (7 days)
+        httpOnly: true,       // Can't be accessed via JavaScript (prevents XSS attacks)
+    },
 }));
 
 
