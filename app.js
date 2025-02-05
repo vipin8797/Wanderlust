@@ -12,6 +12,9 @@ const {listingJoiSchema, reviewJoiSchema} = require('./joiSchema');// listingJoi
 const Review = require('./models/reviews'); //Review model
 const listingRoutes = require('./routes/listingRoutes');//listings routes
 const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
+const session = require('express-session'); //express sessions for authentication and flash-messages.
+
+
 
 
 //mongoose connection to DB
@@ -29,7 +32,13 @@ app.set("views", path.join(__dirname, "views")); //default folder for ejs templa
 app.use(express.static(path.join(__dirname, "public"))); //default public folder for static fiels
 app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
-
+//using Express-Sessions
+app.use(session({
+    secret:"secrete",
+    resave:false, //agli request me koi change ni hai to cookie data save mat karo
+    saveUninitialized:true,
+    cookie:{secure:false},
+}));
 
 
 
