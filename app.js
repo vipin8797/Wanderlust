@@ -15,6 +15,9 @@ const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
 const session = require('express-session'); //express sessions for authentication and flash-messages.
 const flash = require('connect-flash'); // to flash succes and failure messages
 
+const passport = require('passport'); //passport for authentication.
+const LocalStrategy = require('passport-local'); // passport-local for local strategy
+const User = require('./models/user');// User Schema with inbuild passport-local-mongoose functions.
 
 
 //mongoose connection to DB
@@ -55,6 +58,13 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 });
+app.use(passport.initialize()); //using passport
+app.use(passport.session()); //using sessions for passport.
+passport.use(new LocalStrategy(User.authenticate())); //using passport-local for local stategy  with authenicate function of UserSchema.
+                                                 // saare new use authenticate ho local-strategy se using authenticate() ;
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 
 
