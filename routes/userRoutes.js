@@ -49,13 +49,21 @@ router.post('/login',
 );
 
 
+// probele causeing red erro in terminal.
+// router.get('/logout',isLoggedIn,async(req,res,next)=>{
+//     req.logout((err)=>{
+//         return next(err);
+//     });
+//     res.redirect('/listings');
+//     req.flash('success',"Logged Out successfully.");
+// }) 
 
-router.get('/logout',isLoggedIn,async(req,res,next)=>{
-    req.logout((err)=>{
-        next(err);
+router.get('/logout', isLoggedIn, async (req, res, next) => {
+    req.logout(err => {
+        if (err) return next(err); // Handle logout error
+        req.flash('success', "Logged Out successfully."); // Set flash message
+        res.redirect('/listings'); // Redirect after logout
     });
-    res.redirect('/listings');
-    req.flash('success',"Logged Out successfully.");
-})
+});
 
 module.exports = router;
