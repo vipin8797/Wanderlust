@@ -6,7 +6,7 @@ const methodOverride = require('method-override'); //method override fot put,pat
 const ExpressError = require("../utils/ExpressError"); //ExpressError for custom Error class
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const passport = require('passport'); //passport for authentication while login.
-const{isLoggedIn} = require('../middleware');// isLoggedIn middl to check if user is loggedin or not
+const{isLoggedIn,saveRedirectUrl} = require('../middleware');// isLoggedIn middl to check if user is loggedin or not
 router.use(methodOverride('_method')); //method overide
 
 //signUp get req
@@ -20,7 +20,7 @@ router.use(methodOverride('_method')); //method overide
         const{username,email,password} = req.body;
         const newUser = await new User({email,username});
         const registerdUser = await User.register(newUser,password);
-        req.login(registerdUser,(err)=>{
+        req.login(registerdUser,(err)=>{ //login after signup.
             if(err) return next(err);
             req.flash('success',`Welcome "${username}"`);
             res.redirect('/listings')
@@ -41,14 +41,15 @@ router.use(methodOverride('_method')); //method overide
  })
 
 //post for login
-router.post('/login',
+router.post('/login',saveRedirectUrl,
     passport.authenticate('local', {   // Passport's local strategy
         failureRedirect: '/user/login',      // Redirect to login page on failure
         failureFlash: true,             // Flash failure message
     }),
     async (req, res, next) => {
         req.flash('success', `Welcome back!`);  // Flash success message
-        res.redirect('/listings');              // Redirect to listings page on successful login
+       const redirectUrl = res.locals.redirectUrl || "/listings";
+        res.redirect(redirectUrl);              // Redirect to listings page on successful login
     }
 );
 
