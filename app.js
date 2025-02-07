@@ -18,7 +18,7 @@ const flash = require('connect-flash'); // to flash succes and failure messages
 const passport = require('passport'); //passport for authentication.
 const LocalStrategy = require('passport-local'); // passport-local for local strategy
 const User = require('./models/user');// User Schema with inbuild passport-local-mongoose functions.
-
+const userRoutes = require('./routes/userRoutes');
 
 //mongoose connection to DB
 const DB = "wanderlust2";
@@ -67,6 +67,13 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
+// //middleware to check session data on every request.
+// app.use((req, res, next) => {
+//     console.log("SESSION DATA:", req.session);
+//     console.log("USER DATA:", req.user);
+//     next();
+// });
+
 
 //********************************** Routes **************************
 //********************************** Routes **************************
@@ -76,10 +83,14 @@ app.get('/', (req, res) => {
     res.send("server is working");
 })
 
+
+
  //Listings Route
  app.use('/listings',listingRoutes); 
  //Reviews Routes
  app.use('/listings/:id/reviews',reviewRoutes);
+//User Route
+app.use('/user',userRoutes);
 
  //invalid route path
 app.all('*',(req,res,next)=>{
