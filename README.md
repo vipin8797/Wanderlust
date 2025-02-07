@@ -81,7 +81,7 @@
 | Demo User                    | 6-Feb             | Cookie-Parser  |  
 | SignUp Route                 | 6-Feb             | Express-Sessions|
 | Login Route                  | 6-Feb             | Passport        |
-                                                   |Passport-locals  | 
-                                                   |Passport-locals-mongoose |
+|                              |                   |Passport-locals  | 
+|                              |                    |Passport-locals-mongoose |
   
 
