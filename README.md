@@ -69,4 +69,19 @@
 |including flash.ejs in boilerplate.ejs| 5-Feb     |                |  
   
 
+ # 57. Project- Phase 2 (Part d)
+ # dev6 branch added passport authentication.
+ | Content                | Created & Practiced | Libraries Used |
+|------------------------      |--------------------|----------------|
+| How pass stored              | 6-Feb             | Mongoose       |
+| Hashing & Salting            | 6-Feb             | Method_override|
+| Passport                     | 6-Feb             | Express        |
+| User Model                   | 6-Feb             | EJS Mate       |
+| Local Strategy               | 6-Feb             | Joi            |
+| Demo User                    | 6-Feb             | Cookie-Parser  |  
+| SignUp Route                 | 6-Feb             | Express-Sessions|
+| Login Route                  | 6-Feb             | Passport        |
+                                                   |Passport-locals  | 
+                                                   |Passport-locals-mongoose |
   
+
