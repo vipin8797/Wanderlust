@@ -20,14 +20,18 @@ router.use(methodOverride('_method')); //method overide
         const{username,email,password} = req.body;
         const newUser = await new User({email,username});
         const registerdUser = await User.register(newUser,password);
-        req.flash('success',"new user registered");
+        req.login(registerdUser,(err)=>{
+            if(err) return next(err);
+            req.flash('success',`Welcome "${username}"`);
+            res.redirect('/listings')
+        });
         // console.log(registerdUser); 
-        res.redirect('/listings')
-       }catch(err){
+    }catch(err){
         req.flash('warning',err.message);
         res.redirect('/user/signUp');
-       }
- }));
+    }
+}));
+
 
 
 
@@ -43,7 +47,7 @@ router.post('/login',
         failureFlash: true,             // Flash failure message
     }),
     async (req, res, next) => {
-        req.flash('success', "Welcome back!");  // Flash success message
+        req.flash('success', `Welcome back!`);  // Flash success message
         res.redirect('/listings');              // Redirect to listings page on successful login
     }
 );
