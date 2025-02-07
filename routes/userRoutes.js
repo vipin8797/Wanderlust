@@ -6,7 +6,7 @@ const methodOverride = require('method-override'); //method override fot put,pat
 const ExpressError = require("../utils/ExpressError"); //ExpressError for custom Error class
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const passport = require('passport'); //passport for authentication while login.
-
+const{isLoggedIn} = require('../middleware');// isLoggedIn middl to check if user is loggedin or not
 router.use(methodOverride('_method')); //method overide
 
 //signUp get req
@@ -49,5 +49,13 @@ router.post('/login',
 );
 
 
+
+router.get('/logout',isLoggedIn,async(req,res,next)=>{
+    req.logout((err)=>{
+        next(err);
+    });
+    res.redirect('/listings');
+    req.flash('success',"Logged Out successfully.");
+})
 
 module.exports = router;
