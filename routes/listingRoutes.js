@@ -7,7 +7,7 @@ const ExpressError = require("../utils/ExpressError"); //ExpressError for custom
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const {listingJoiSchema, reviewJoiSchema} = require('../joiSchema');// listingJoiSchema for joi validation.
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-
+const {isLoggedIn} = require("../middleware"); //middleware to check if user is logged in or not.
 //using dependencies
 router.use(methodOverride('_method')); //method overide
 
@@ -36,12 +36,12 @@ router.get('/', wrapAsync(async (req, res) => {
 
 
 //Get Req for new listing
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn,(req, res) => {
 res.render('listings/new.ejs');
 })
 
 //post for new listing
-router.post('/',joiListingValidate, wrapAsync(async (req, res,next) => {
+router.post('/',isLoggedIn,joiListingValidate, wrapAsync(async (req, res,next) => {
 const { listing } = req.body;
 const newListing = new Listing(listing);
     await newListing.save();
@@ -64,7 +64,7 @@ const { id } = req.params;
 
 
 //Get for Edit
-router.get('/:id/edit', wrapAsync(async (req, res) => {
+router.get('/:id/edit',isLoggedIn, wrapAsync(async (req, res) => {
 const { id } = req.params;
 
 const listing = await Listing.findById(id);
@@ -74,7 +74,7 @@ res.render('listings/edit.ejs', { listing });
 
 
 
-router.put('/:id',joiListingValidate, wrapAsync(async (req, res) => {
+router.put('/:id',isLoggedIn,joiListingValidate, wrapAsync(async (req, res) => {
 const { id } = req.params;
 
 await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
@@ -84,7 +84,7 @@ res.redirect('/listings');
 
 
 //Delete Route
-router.delete('/:id', wrapAsync(async (req, res) => {
+router.delete('/:id',isLoggedIn, wrapAsync(async (req, res) => {
 const { id } = req.params;
 
 await Listing.findByIdAndDelete(id);
