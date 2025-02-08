@@ -9,7 +9,8 @@
 | Styling Index Page     | 27-Jan             | EJS Mate       |
 | Styling New Listing    | 27-Jan             |                |
 | Styling Edit Listing   | 27-Jan             |                |  
- 
+
+ # 52-Project-Phase-1-Part-c-
 # dev2 added error handling and joiValidation in project.
 
 | Content                | Created & Practiced | Libraries Used |
@@ -22,7 +23,9 @@
 | Error.ejs                | 30-Jan             |                |  
 | Joi Schema Validation    | 30-Jan             | Joi            |
 | JoiValidation middleware | 30-Jan             |                |  
-  
+
+
+ # 54-Project-Phase-2-Part-c- 
 # dev3 added relational db and their operations.
 
 
@@ -38,6 +41,7 @@
 | Deleting Listing rel   | 31-Jan             |                |  
 
 
+# 55-Project-Phase-2-Part-b-
 # dev4 set ExpressRouter to add listings and review routes in separate folder, router is prebuilt in Express.
 
 | Content                      | Created & Practiced | Libraries Used |
@@ -52,7 +56,7 @@
 |Signed Cookies                | 4-Feb             |                |  
   
 
-
+# 56-Project-Phase-2-Part-c-
 # dev5 implements Express-Sessions and connect-flash messages later used for authentication.
 
 
