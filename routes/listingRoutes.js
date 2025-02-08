@@ -48,7 +48,12 @@ router.post('/', isLoggedIn, joiListingValidate, wrapAsync(async (req, res, next
 router.get('/:id', wrapAsync(async (req, res) => {
     const { id } = req.params;
 
-    const listing = await Listing.findById(id).populate('reviews').populate('owner');
+    const listing = await Listing.findById(id)
+    .populate({
+        path:'reviews',
+        populate:{
+            path:'auther'
+            ,},}).populate('owner');
     // console.log(listing);
     res.render('listings/show.ejs', { listing });
 }));

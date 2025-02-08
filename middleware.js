@@ -1,4 +1,5 @@
 const Listing = require('./models/listing');
+const Review = require('./models/reviews');
 
 const { listingJoiSchema, reviewJoiSchema } = require('./joiSchema');// listingJoiSchema for joi validation.
 const ExpressError = require("./utils/ExpressError"); //ExpressError for custom Error class
@@ -41,16 +42,28 @@ module.exports.joiReviewValidate = (req,res,next) =>{
 //********** Authenticataion middleware ****************** */
 //********** Authenticataion middleware ****************** */
 //middleware to check if user is logged in or not.
-module.exports.isLoggedIn  = (req,res,next)=>{
-    if(!req.isAuthenticated()){
-        req.session.redirectUrl = req.originalUrl; //url user was accessin befor login saved in session
-                                                   //but session is reset when user logge in then store in in res.locals wtih middlewaer 
-        req.flash('warning',"You must be logged in for this!");
-        return res.redirect('/user/login');
-    }else{
-        next();
+// module.exports.isLoggedIn  = (req,res,next)=>{
+//     if(!req.isAuthenticated()){
+//         req.session.redirectUrl = req.originalUrl; //url user was accessin befor login saved in session
+//                                                    //but session is reset when user logge in then store in in res.locals wtih middlewaer 
+//         req.flash('warning',"You must be logged in for this!");
+//         return res.redirect('/user/login');
+//     }else{
+//         next();
+//     }
+// }
+//updated isLoggedIn middleware.
+module.exports.isLoggedIn = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        if (req.method === "GET") {
+            req.session.redirectUrl = req.originalUrl;  // ✅ Sirf GET requests ka redirectUrl save karo
+        }
+        req.flash("warning", "You must be logged in for this action!");
+        return res.redirect("/user/login");
     }
-}
+    next();
+};
+
 
 
 //middleware to store redirectUrl in res.locals
@@ -85,6 +98,19 @@ module.exports.isOwner = async(req,res,next)=>{
     }
 }
  
+
+//middleware to check auther of review
+module.exports.isReviewAuther = async(req,res,next)=>{
+    const{id,reviewId} = req.params;
+    const review = await Review.findById(reviewId);
+    if(!res.locals.currUser._id.equals(review.auther._id)){
+        req.flash('warning',"You don't have permission for this!");
+        res.redirect(`/listings/${id}`);
+    }else{
+    next();
+    }
+}
+
 //********** Authorization middleware ****************** */
 //********** Authorization middleware ****************** */
 
