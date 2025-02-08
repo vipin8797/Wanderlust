@@ -3,7 +3,7 @@
 <body class="bg-light">
 
   <div class="container my-5">
-    <h1 class="text-center mb-4 text-primary">Listing Details</h1>
+    <h1 class="text-center mb-4 text-primary">Owner:<%=listing.owner.username%></h1>
 
     <!-- Listing details container -->
     <div class="card shadow-lg border-0" style="border-radius: 15px; background-color: #f7f7f7;">
@@ -37,6 +37,7 @@
           </div>
         <% } %>
 
+ <%   if(currUser && currUser._id.equals(listing.owner._id)){%>
         <!-- Edit and Delete buttons -->
         <div class="d-flex justify-content-between">
           <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning btn-lg shadow-sm px-4 py-2 rounded-pill text-dark hover-shadow">Edit</a>
@@ -46,12 +47,14 @@
         </div>
       </div>
     </div>
+  <%}%>
 
     <!-- Back to Listings Link -->
     <div class="text-center mt-4">
       <a href="/listings" class="btn btn-outline-primary btn-lg shadow-sm">Back to Listings</a>
     </div>
 
+    <%if(currUser){%>
     <!-- Review Form Section -->
     <div class="mt-5">
       <h3 class="text-center text-dark mb-4">Leave a Review</h3>
@@ -83,7 +86,7 @@
         </div>
       </form>
     </div>
-
+<%}%>
     <!-- Reviews Section -->
     <% if (listing.reviews && listing.reviews.length > 0) { %>
       <h3 class="text-center text-dark mb-4 mt-5">Reviews</h3>
@@ -91,7 +94,16 @@
         <% listing.reviews.forEach(review => { %>
           <div class="col">
             <div class="card h-100 shadow-sm border-0" style="border-radius: 10px;">
-              <div class="card-body d-flex flex-column">
+              <div class="card-body d-flex flex-column position-relative">
+                <!-- Review Author on Top Right -->
+                <span class="position-absolute top-0 end-0 m-2 text-muted">
+                  <% if (review.auther) { %>
+                    <%= review.auther.username %>
+                  <% } else { %>
+                    Unknown Author
+                  <% } %>
+                </span>
+                
                 <h5 class="card-title text-dark">Rating: <%= review.rating %></h5>
                 <p class="card-text text-dark"><%= review.comment %></p>
                 <small class="text-muted">Created At: <%= review.created_At.toLocaleString() %></small>

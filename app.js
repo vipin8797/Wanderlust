@@ -51,13 +51,7 @@ app.use(flash()); //using connect-flash after sessions.
 //*****************Using dependencies
 
 
-// Flash global middleware
-app.use((req, res, next) => {
-    res.locals.success = req.flash('success');
-    res.locals.warning = req.flash('warning');
-    res.locals.error = req.flash('error');
-    next();
-});
+
 app.use(passport.initialize()); //using passport
 app.use(passport.session()); //using sessions for passport.
 passport.use(new LocalStrategy(User.authenticate())); //using passport-local for local stategy  with authenicate function of UserSchema.
@@ -66,6 +60,14 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+// Flash global middleware
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.warning = req.flash('warning');
+    res.locals.error = req.flash('error');
+    res.locals.currUser = req.user || null; //currUser info to use in navbar to display login/signup/logout
+     next();
+});
 
 // //middleware to check session data on every request.
 // app.use((req, res, next) => {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'); //mongoose for MongoDB
 const Review = require('./reviews'); //required for mongoose post middleware to delete reviews while listing is deleted.
-
+const User = require('./user');
 
 const listingSchema = new mongoose.Schema({
     title: {
@@ -39,7 +39,9 @@ const listingSchema = new mongoose.Schema({
     reviews: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Review' }
       ],
-      
+    owner:{
+        type:mongoose.Schema.Types.ObjectId, ref:'User',
+    }  
       
 });
 

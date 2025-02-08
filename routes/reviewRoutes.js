@@ -7,30 +7,20 @@ const ExpressError = require("../utils/ExpressError"); //ExpressError for custom
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const {listingJoiSchema, reviewJoiSchema} = require('../joiSchema');// listingJoiSchema for joi validation.
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-
+const {joiReviewValidate,joiListingValidate,isLoggedIn,isReviewAuther} = require('../middleware');
 //using depedencies
 router.use(methodOverride('_method')); //method overide
 
 
 
 
-//joi review validation middleware
-const joiReviewValidate = (req,res,next) =>{
-    //validation Joi Schema
-    const{error} = reviewJoiSchema.validate(req.body,{abortEarly:false});
-    if(error){
-        let errMsg = error.details.map(el=>el.message).join(", ");
-        return next(new ExpressError(404, errMsg));
-    }
-    next();
-};
-    
+  
 
 
 
 
 // //Reviews Routes starts from here
-router.post('/',joiReviewValidate, wrapAsync(async (req, res, next) => {
+router.post('/',isLoggedIn,joiReviewValidate, wrapAsync(async (req, res, next) => {
     const { id } = req.params;
     const { review } = req.body;
     
@@ -41,8 +31,9 @@ router.post('/',joiReviewValidate, wrapAsync(async (req, res, next) => {
         rating: review.rating,
         created_At: Date.now(),
       });
-      
+      newReview.auther = req.user._id;
       await newReview.save();
+      // console.log(newReview);
       listing.reviews.push(newReview);
       await listing.save();
       req.flash('success',"review created!")
@@ -53,7 +44,7 @@ router.post('/',joiReviewValidate, wrapAsync(async (req, res, next) => {
 
 
     //Review Delete Route
-    router.delete('/:reviewId',wrapAsync(async(req,res,next)=>{
+    router.delete('/:reviewId',isLoggedIn,isReviewAuther,wrapAsync(async(req,res,next)=>{
       const{id,reviewId} = req.params;
       await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
       await Review.findByIdAndDelete(reviewId);
