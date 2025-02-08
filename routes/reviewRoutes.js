@@ -7,24 +7,14 @@ const ExpressError = require("../utils/ExpressError"); //ExpressError for custom
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const {listingJoiSchema, reviewJoiSchema} = require('../joiSchema');// listingJoiSchema for joi validation.
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-
+const {joiReviewValidate,joiListingValidate} = require('../middleware');
 //using depedencies
 router.use(methodOverride('_method')); //method overide
 
 
 
 
-//joi review validation middleware
-const joiReviewValidate = (req,res,next) =>{
-    //validation Joi Schema
-    const{error} = reviewJoiSchema.validate(req.body,{abortEarly:false});
-    if(error){
-        let errMsg = error.details.map(el=>el.message).join(", ");
-        return next(new ExpressError(404, errMsg));
-    }
-    next();
-};
-    
+  
 
 
 

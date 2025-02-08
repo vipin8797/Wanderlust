@@ -37,8 +37,7 @@
           </div>
         <% } %>
 
-     <%   if(currUser && currUser._id.equals(listing.owner._id)){%>
-        <!-- Edit and Delete buttons -->
+       <!-- Edit and Delete buttons -->
         <div class="d-flex justify-content-between">
           <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning btn-lg shadow-sm px-4 py-2 rounded-pill text-dark hover-shadow">Edit</a>
           <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
@@ -47,7 +46,7 @@
         </div>
       </div>
     </div>
-  <%}%>
+
 
     <!-- Back to Listings Link -->
     <div class="text-center mt-4">
