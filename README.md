@@ -85,3 +85,19 @@
 |                              |                    |Passport-locals-mongoose |
   
 
+# 58. Project- Phase 2 (Part e)
+# dev7 branch added  authorization
+
+| Content                | Created & Practiced | Libraries Used |
+|------------------------      |--------------------|----------------|
+| connecting Login Route       | 8-Feb             | Mongoose       |
+| LogOut User                  | 8-Feb             | Method_override|
+| Login after SignUp           | 8-Feb             | Express        |
+| Post-Login Page              | 8-Feb             | EJS Mate       |
+| Listing Owner                | 8-Feb             | Joi            |
+| Starting with Authorization  | 8-Feb             | Cookie-Parser  |  
+| Listing Authorization        | 8-Feb             | Express-Sessions|
+| Revew Authorization          | 8-Feb             | Passport        |
+|                              |                   |Passport-locals  | 
+|                              |                   |Passport-locals-mongoose |
+  
