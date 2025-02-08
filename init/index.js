@@ -15,7 +15,12 @@ async function main(){
     try{
        await  Listing.deleteMany({});
        console.log("data deleted..");
-       await Listing.insertMany(data);
+       const updatedData = data.map((obj) => ({
+        ...obj,
+        owner: '67a5f64dd245e169b4670dd4'
+    })); //adding owner in each listing.
+       await Listing.insertMany(updatedData);
+       
        console.log("data initialized...");
     }catch(err){
         console.log(err);

@@ -44,6 +44,7 @@ res.render('listings/new.ejs');
 router.post('/',isLoggedIn,joiListingValidate, wrapAsync(async (req, res,next) => {
 const { listing } = req.body;
 const newListing = new Listing(listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash('success',"new Listing created!");
     res.redirect('/listings');
@@ -57,9 +58,9 @@ const newListing = new Listing(listing);
 router.get('/:id',wrapAsync(async (req, res) => {
 const { id } = req.params;
 
-    const listing = await Listing.findById(id).populate('reviews');
+    const listing = await Listing.findById(id).populate('reviews').populate('owner');
+    // console.log(listing);
     res.render('listings/show.ejs', { listing });
-
 }));
 
 
