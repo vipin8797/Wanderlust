@@ -62,7 +62,7 @@
       <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto needs-validation" style="max-width: 600px;"  novalidate>
         
         <!-- Rating Selection -->
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="rating" class="form-label">Rating (1 to 5)</label>
           <select class="form-select" id="rating" name="review[rating]" required>
             <option value="1">1 - Poor</option>
@@ -71,8 +71,21 @@
             <option value="4">4 - Very Good</option>
             <option value="5">5 - Excellent</option>
           </select>
-        </div>
-
+        </div> -->
+        <fieldset class="starability-slot">
+          <legend>Rate us:</legend>
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+          <input type="radio" id="second-rate1" name="review[rating]" value="1" />
+          <label for="second-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="second-rate2" name="review[rating]" value="2" />
+          <label for="second-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="second-rate3" name="review[rating]" value="3" />
+          <label for="second-rate3" title="Average">3 stars</label>
+          <input type="radio" id="second-rate4" name="review[rating]" value="4" />
+          <label for="second-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="second-rate5" name="review[rating]" value="5" />
+          <label for="second-rate5" title="Amazing">5 stars</label>
+        </fieldset>
         <!-- Review Text Area -->
         <div class="mb-3">
           <label for="reviewText" class="form-label">Your Review</label>
@@ -98,13 +111,14 @@
                 <!-- Review Author on Top Right -->
                 <span class="position-absolute top-0 end-0 m-2 text-muted">
                   <% if (review.auther) { %>
-                    <%= review.auther.username %>
+                    @<%= review.auther.username %>
                   <% } else { %>
                     Unknown Author
                   <% } %>
                 </span>
-                
-                <h5 class="card-title text-dark">Rating: <%= review.rating %></h5>
+                <p class="starability-result" data-rating="<%= review.rating %>">
+                  Rated: 3 stars
+                </p>
                 <p class="card-text text-dark"><%= review.comment %></p>
                 <small class="text-muted">Created At: <%= review.created_At.toLocaleString() %></small>
                 <%   if(currUser && currUser._id.equals(review.auther._id)){%>
