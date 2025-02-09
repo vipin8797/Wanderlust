@@ -13,37 +13,54 @@ const {signupGetRoute,signupPostRoute,
       loginGetRoute,loginPostRoute,logoutGetRoute} = require('../controllers/userRoutesLogic');
 
 
-//signUp get req
- router.get('/signUp',signupGetRoute);
-
- //post for user
- router.post('/signUp',wrapAsync(signupPostRoute));
 
 
 
 
- //get for login
- router.get('/login',loginGetRoute)
-
-//post for login
-router.post('/login',saveRedirectUrl,
-    passport.authenticate('local', {   // Passport's local strategy
-        failureRedirect: '/user/login',      // Redirect to login page on failure
-        failureFlash: true,             // Flash failure message
-    }),
-    loginPostRoute
-);
+router.route('/signUp')
+.get(signupGetRoute) //get for signup
+.post(wrapAsync(signupPostRoute)); //post for signup
 
 
-// probele causeing red erro in terminal.
-// router.get('/logout',isLoggedIn,async(req,res,next)=>{
-//     req.logout((err)=>{
-//         return next(err);
-//     });
-//     res.redirect('/listings');
-//     req.flash('success',"Logged Out successfully.");
-// }) 
+router.route('/login')
+.get(loginGetRoute) //get for login
+.post(saveRedirectUrl,
+        passport.authenticate('local', {   // Passport's local strategy
+            failureRedirect: '/user/login',      // Redirect to login page on failure
+            failureFlash: true,             // Flash failure message
+        }),loginPostRoute) //post for login
 
-router.get('/logout', isLoggedIn, logoutGetRoute);
+
+router.route('/logout')
+.get(isLoggedIn, logoutGetRoute); //get logout
+
+
+
+
+
+// //signUp get req
+//  router.get('/signUp',signupGetRoute);
+
+//  //post for user
+//  router.post('/signUp',wrapAsync(signupPostRoute));
+
+
+
+
+//  //get for login
+//  router.get('/login',loginGetRoute)
+
+// //post for login
+// router.post('/login',saveRedirectUrl,
+//     passport.authenticate('local', {   // Passport's local strategy
+//         failureRedirect: '/user/login',      // Redirect to login page on failure
+//         failureFlash: true,             // Flash failure message
+//     }),
+//     loginPostRoute
+// );
+
+
+
+// router.get('/logout', isLoggedIn, logoutGetRoute);
 
 module.exports = router;
