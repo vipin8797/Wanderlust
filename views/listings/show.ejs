@@ -61,17 +61,7 @@
       
       <form method="POST" action="/listings/<%= listing._id %>/reviews" class="mx-auto needs-validation" style="max-width: 600px;"  novalidate>
         
-        <!-- Rating Selection -->
-        <!-- <div class="mb-3">
-          <label for="rating" class="form-label">Rating (1 to 5)</label>
-          <select class="form-select" id="rating" name="review[rating]" required>
-            <option value="1">1 - Poor</option>
-            <option value="2">2 - Fair</option>
-            <option value="3">3 - Good</option>
-            <option value="4">4 - Very Good</option>
-            <option value="5">5 - Excellent</option>
-          </select>
-        </div> -->
+    
         <fieldset class="starability-slot">
           <legend>Rate us:</legend>
           <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />

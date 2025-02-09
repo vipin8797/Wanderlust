@@ -15,7 +15,8 @@ const { indexGetRoute, newGetRoute, newPostRoute,
     showGetRoute, editGetRoute, editPutRoute, destroyRoute } = require('../controllers/lisRoutesLogic');
 
 
-
+const multer  = require('multer') //multer for image updloadation
+const upload = multer({ dest: 'uploads/' })
 
 
 router.route('/new')
@@ -24,7 +25,12 @@ router.route('/new')
 
 router.route('/')
     .get(wrapAsync(indexGetRoute))   //index route
-    .post(isLoggedIn, joiListingValidate, wrapAsync(newPostRoute))   //post for new listing
+    // .post(isLoggedIn, joiListingValidate, wrapAsync(newPostRoute))   //post for new listing
+    .post(upload.single('listing[image]'),(req,res)=>{
+        res.send(req.file);
+    })
+  
+
 
 router.route("/:id")
     .get(wrapAsync(showGetRoute))  //show route
