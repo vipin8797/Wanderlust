@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != 'production'){ // to store cloud credentials.
+    require('dotenv').config();
+}
+
 
 //Requiring dependencies
 const express = require('express');
