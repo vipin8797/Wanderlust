@@ -10,62 +10,33 @@ const methodOverride = require('method-override'); //method override fot put,pat
 const { joiListingValidate,isLoggedIn, isOwner } = require("../middleware"); //middleware to check if user is logged in or not.
 //using dependencies
 router.use(methodOverride('_method')); //method overide
-
+//Route Logics
+const {indexGetRoute,newGetRoute,newPostRoute,
+      showGetRoute,editGetRoute,editPutRoute,destroyRoute} = require('../controllers/lisRoutesLogic');
 
 
 
 
 
 //index route
-router.get('/', wrapAsync(async (req, res) => {
-
-    const allListings = await Listing.find({});
-    res.render('listings/index.ejs', { allListings });
-
-}));
+router.get('/', wrapAsync(indexGetRoute));
 
 
 //Get Req for new listing
-router.get('/new', isLoggedIn, (req, res) => {
-    res.render('listings/new.ejs');
-})
+router.get('/new', isLoggedIn, newGetRoute);
 
 //post for new listing
-router.post('/', isLoggedIn, joiListingValidate, wrapAsync(async (req, res, next) => {
-    const { listing } = req.body;
-    const newListing = new Listing(listing);
-    newListing.owner = req.user._id;
-    await newListing.save();
-    req.flash('success', "new Listing created!");
-    res.redirect('/listings');
-
-}))
+router.post('/', isLoggedIn, joiListingValidate,wrapAsync(newPostRoute));
 
 
 
 
 //show route
-router.get('/:id', wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    const listing = await Listing.findById(id)
-    .populate({
-        path:'reviews',
-        populate:{
-            path:'auther'
-            ,},}).populate('owner');
-    // console.log(listing);
-    res.render('listings/show.ejs', { listing });
-}));
+router.get('/:id', wrapAsync(showGetRoute));
 
 
 //Get for Edit
-router.get('/:id/edit', isLoggedIn, wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    const listing = await Listing.findById(id);
-    res.render('listings/edit.ejs', { listing });
-}));
+router.get('/:id/edit', isLoggedIn, wrapAsync(editGetRoute));
 
 
 
@@ -74,24 +45,11 @@ router.put('/:id',
     isLoggedIn,
     isOwner,
     joiListingValidate,
-    wrapAsync(async (req, res) => {
-        const { id } = req.params;
-
-        await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
-        req.flash('warning', "Listing Edited succesfully!");
-        res.redirect('/listings');
-    }));
+    wrapAsync(editPutRoute));
 
 
 //Delete Route
-router.delete('/:id', isLoggedIn, isOwner, wrapAsync(async (req, res) => {
-    const { id } = req.params;
-
-    await Listing.findByIdAndDelete(id);
-    req.flash('error', 'Listing deleted !');
-    res.redirect('/listings');
-
-}));
+router.delete('/:id', isLoggedIn, isOwner, wrapAsync(destroyRoute));
 
 
 
