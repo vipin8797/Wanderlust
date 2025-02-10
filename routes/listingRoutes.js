@@ -7,16 +7,16 @@ const ExpressError = require("../utils/ExpressError"); //ExpressError for custom
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const { listingJoiSchema, reviewJoiSchema } = require('../joiSchema');// listingJoiSchema for joi validation.
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-const { joiListingValidate, isLoggedIn, isOwner } = require("../middleware"); //middleware to check if user is logged in or not.
+const { joiListingValidate, isLoggedIn, isOwner ,setListingImagePara} = require("../middleware"); //middleware to check if user is logged in or not.
 //using dependencies
 router.use(methodOverride('_method')); //method overide
 //Route Logics
 const { indexGetRoute, newGetRoute, newPostRoute,
     showGetRoute, editGetRoute, editPutRoute, destroyRoute } = require('../controllers/lisRoutesLogic');
 
-
-const multer  = require('multer') //multer for image updloadation
-const upload = multer({ dest: 'uploads/' })
+    const multer  = require('multer') //multer for image updloadation
+    const {storage} = require('../cloudConfig'); //requiring cloudinary storage 
+    const upload = multer({storage}); //multer to store file in storage of cloudinary.
 
 
 router.route('/new')
@@ -25,17 +25,20 @@ router.route('/new')
 
 router.route('/')
     .get(wrapAsync(indexGetRoute))   //index route
-    // .post(isLoggedIn, joiListingValidate, wrapAsync(newPostRoute))   //post for new listing
-    .post(upload.single('listing[image]'),(req,res)=>{
-        res.send(req.file);
-    })
-  
+    .post(isLoggedIn,
+        upload.single("listing[image]"),
+        setListingImagePara,
+        joiListingValidate,
+         wrapAsync(newPostRoute))   //post for new listing
+   
 
 
 router.route("/:id")
     .get(wrapAsync(showGetRoute))  //show route
     .put(isLoggedIn,
         isOwner,
+        upload.single("listing[image]"),
+        setListingImagePara,
         joiListingValidate,
         wrapAsync(editPutRoute)) //edit route
     .delete(isLoggedIn, isOwner, wrapAsync(destroyRoute)) //delete route

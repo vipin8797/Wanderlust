@@ -115,3 +115,26 @@ module.exports.isReviewAuther = async(req,res,next)=>{
 //********** Authorization middleware ****************** */
 
        
+
+//upload image ke parameters ko chanage karne ke liye taki joivalidate ho sake 
+module.exports.setListingImagePara = (req, res, next) => {
+    
+      console.log(req.file);
+    // ✅ If user uploaded a new image
+    if (req.file) {
+        req.body.listing.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
+    }
+    // ✅ If user entered an image URL
+    else if (req.body.listing?.image?.url) {
+        req.body.listing.image = {
+            url: req.body.listing.image.url,
+            filename: "custom-url"
+        };
+    }
+    
+    console.log("🔥 Final Image Object:", req.body.listing.image);
+    next();
+};

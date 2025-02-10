@@ -16,7 +16,10 @@ const listingJoiSchema = Joi.object({
             url: Joi.string().uri().allow("").default("https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2VhJTIwYmVhY2h8ZW58MHx8MHx8fDA%3D").messages({
                 "string.uri": "Invalid image URL"
             })
+            
         }).default({}),
+        
+        
         price: Joi.number().min(0).required().messages({
             "number.base": "Price must be a number",
             "number.min": "Price must be a positive value",

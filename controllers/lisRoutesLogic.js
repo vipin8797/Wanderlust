@@ -21,12 +21,15 @@ module.exports.newGetRoute = (req, res) => {
 module.exports.newPostRoute = async (req, res, next) => {
     const { listing } = req.body;
     const newListing = new Listing(listing);
-    newListing.owner = req.user._id;
+    newListing.owner = req.user._id;    
+    // console.log(newListing);
     await newListing.save();
-    req.flash('success', "new Listing created!");
+    req.flash('success', "New Listing Created!");
     res.redirect('/listings');
-
 };
+
+
+
 
 module.exports.showGetRoute = async (req, res) => {
     const { id } = req.params;
@@ -53,6 +56,7 @@ module.exports.editPutRoute = async (req, res) => {
     const { id } = req.params;
 
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { runValidators: true });
+    
     req.flash('warning', "Listing Edited succesfully!");
     res.redirect('/listings');
 };

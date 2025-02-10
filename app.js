@@ -137,5 +137,7 @@ main().then(() => {
     console.log(`connectd to: ${DB} DB`);
     app.listen(port, () => {
         console.log(`listening at port ${port}`);
+        
+        
     })
 })
