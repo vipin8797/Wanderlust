@@ -104,4 +104,20 @@
 | Revew Authorization          | 8-Feb             | Passport        |
 |                              |                   |Passport-locals  | 
 |                              |                   |Passport-locals-mongoose |
-  
+
+
+# 59. Project- Phase 3 (Part a) 
+| Content             | Created & Practiced | Libraries Used                       |
+|----------------------|--------------------|--------------------------------------|
+| MVC Model            | 10-Feb             | Mongoose                              |
+| MVC for Listing      | 10-Feb             | Method_override                     |
+| MVC for Review & User| 10-Feb             | Express                               |
+| Router.route         | 10-Feb             | EJS Mate                              |
+| Restyling Rating     | 10-Feb             | Joi                                  |
+| Image Upload         | 10-Feb             | Cookie-Parser, Multer, Dotenv, Cloudinary, Multer-Storage-Cloudinary |
+| Manipulating Form    | 10-Feb             | Express-Sessions                      |
+| Cloud Setup          | 10-Feb             | Passport, Passport-locals, Passport-locals-mongoose |
+| Store Files          | 10-Feb             | -                                     |
+| Save Listing in Mongo| 10-Feb             | -                                     |
+| Display Image        | 10-Feb             | -   
+
