@@ -121,3 +121,21 @@
 | Save Listing in Mongo| 10-Feb             | -                                     |
 | Display Image        | 10-Feb             | -   
 
+
+# dev8 implements image Preview in Edit.ejs file and Map for Each Listing.
+
+| Content               | Created & Practiced | Libraries Used                |
+|-----------------------|--------------------|------------------------------|
+| Edit Listing Image    | 11-Feb             | Mongoose                      |
+| Image Preview edit.ejs | 11-Feb            | Method_override               |
+| Getting star with Map | 11-Feb             | Express                       |
+| Our First Map         | 11-Feb             | EJS Mate                      |
+| Geocoding             | 11-Feb             | Joi                           |
+| Storing Coordinates   | 11-Feb             | Cookie-Parser                 |
+| Map Marker            | 11-Feb             | Express-Sessions              |
+| Map Popup             | 11-Feb             | Passport                      |
+|                       |                    | Passport-locals               |
+|                       |                    | Passport-locals-mongoose      |
+|                       |                    | unknown                       |
+|                       |                    | unknown                       |
+
