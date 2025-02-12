@@ -1,11 +1,77 @@
-<!-- //BoilerPlate file with Header and Footer. -->
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
+<style>
+  .filter-item {
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
 
+.filter-item:hover {
+  /* transform: scale(1.1); */
+  color: #007bff;
+}
 
-
+</style>
 <body>
   <div class="container my-4">
-    <h1 class="mb-4">All Listings</h1>
+    
+
+    <!-- ✅ Icons Filter Row -->
+    <div class="row text-center mb-4">
+      <div class="col d-flex justify-content-between overflow-auto">
+
+        <!-- Beachfront -->
+        <a href="/listings?category=beachfront" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-umbrella-beach fa-2x"></i>
+            <p class="small">Beachfront</p>
+          </div>
+        </a>
+
+        <!-- Pool -->
+        <a href="/listings?category=pool" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-swimming-pool fa-2x"></i>
+            <p class="small">Pool</p>
+          </div>
+        </a>
+
+        <!-- WiFi -->
+        <a href="/listings?category=wifi" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-wifi fa-2x"></i>
+            <p class="small">WiFi</p>
+          </div>
+        </a>
+
+        <!-- Pets Allowed -->
+        <a href="/listings?category=pets" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-paw fa-2x"></i>
+            <p class="small">Pets Allowed</p>
+          </div>
+        </a>
+
+        <!-- Camping -->
+        <a href="/listings?category=camping" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-campground fa-2x"></i>
+            <p class="small">Camping</p>
+          </div>
+        </a>
+
+        <!-- Luxury -->
+        <a href="/listings?category=luxury" class="text-decoration-none text-dark">
+          <div class="filter-item p-2">
+            <i class="fas fa-gem fa-2x"></i>
+            <p class="small">Luxury</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ✅ Listings Grid -->
     <div class="row">
       <% for (listing of allListings) { %>
         <div class="col-md-4 mb-4">
