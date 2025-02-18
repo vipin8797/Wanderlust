@@ -133,9 +133,9 @@ app.use((err, req, res, next) => {
     // console.error("Error Type:", err.name);
     // console.log("App is not crashed..");
     // Render error.ejs and pass error details
-    // res.status(status).render("listings/error.ejs", { status, message });
+    res.status(status).render("listings/error.ejs", { status, message });
     
-    console.log(err);
+    // console.log(err);
 });
 
 
