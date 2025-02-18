@@ -95,12 +95,6 @@ app.use((req, res, next) => {
 //********************************** Routes **************************
 //********************************** Routes **************************
 
-//Roote route
-app.get('/', (req, res) => {
-    res.send("server is working");
-})
-
-
 
  //Listings Route
  app.use('/listings',listingRoutes); 
