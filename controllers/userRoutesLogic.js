@@ -6,7 +6,8 @@ module.exports.signupGetRoute = (req,res,next)=>{
  };
 
 
-module.exports.sigupPostRoute = async(req,res,next)=>{
+module.exports.signupPostRoute = async(req,res,next)=>{
+    // console.log("getting request");
     try{
         const{username,email,password} = req.body;
         const newUser = await new User({email,username});

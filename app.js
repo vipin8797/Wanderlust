@@ -17,6 +17,7 @@ const Review = require('./models/reviews'); //Review model
 const listingRoutes = require('./routes/listingRoutes');//listings routes
 const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
 const session = require('express-session'); //express sessions for authentication and flash-messages.
+const MongoStore = require('connect-mongo'); //connect-mongo to store sessions in mongoAtlas
 const flash = require('connect-flash'); // to flash succes and failure messages
 
 const passport = require('passport'); //passport for authentication.
@@ -27,7 +28,7 @@ const userRoutes = require('./routes/userRoutes');
 //mongoose connection to DB
 const DB = "wanderlust2";
 async function main() {
-    await mongoose.connect(`mongodb://127.0.0.1:27017/${DB}`)
+    await mongoose.connect(`${process.env.mongoDbAtlas_url}`);
 }
 
 
@@ -39,9 +40,19 @@ app.set("views", path.join(__dirname, "views")); //default folder for ejs templa
 app.use(express.static(path.join(__dirname, "public"))); //default public folder for static fiels
 app.use(methodOverride('_method')); //method overide
 app.engine('ejs', engine); //Using ejsMate in oure porject
+//using connect-mongo to store sessions data on mongoAtlas
+const store = MongoStore.create({
+    mongoUrl:process.env.mongoDbAtlas_url,
+    crypto:{
+        secrete:process.env.SECRET,
+        touchAfter:24*3600,
+    }
+})
+store.on("error",()=>{console.log("error in sessions",err)}); //getting error for sessions.
 //using Express-Sessions
 app.use(session({
-    secret: "secrete",
+    store,
+    secret: process.env.SECRET,
     resave: false,            // No need to save session if no change
     saveUninitialized: true,  // Save session even if it's new (but not modified)
     cookie: {
@@ -122,9 +133,9 @@ app.use((err, req, res, next) => {
     // console.error("Error Type:", err.name);
     // console.log("App is not crashed..");
     // Render error.ejs and pass error details
-    res.status(status).render("listings/error.ejs", { status, message });
+    // res.status(status).render("listings/error.ejs", { status, message });
     
-    //console.log(err);
+    console.log(err);
 });
 
 
