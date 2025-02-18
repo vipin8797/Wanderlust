@@ -27,7 +27,7 @@ const userRoutes = require('./routes/userRoutes');
 //mongoose connection to DB
 const DB = "wanderlust2";
 async function main() {
-    await mongoose.connect(`mongodb://127.0.0.1:27017/${DB}`)
+    await mongoose.connect(`${process.env.mongoDbAtlas_url}`);
 }
 
 
@@ -122,9 +122,9 @@ app.use((err, req, res, next) => {
     // console.error("Error Type:", err.name);
     // console.log("App is not crashed..");
     // Render error.ejs and pass error details
-    res.status(status).render("listings/error.ejs", { status, message });
+    // res.status(status).render("listings/error.ejs", { status, message });
     
-    //console.log(err);
+    console.log(err);
 });
 
 

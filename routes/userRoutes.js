@@ -16,7 +16,6 @@ const {signupGetRoute,signupPostRoute,
 
 
 
-
 router.route('/signUp')
 .get(signupGetRoute) //get for signup
 .post(wrapAsync(signupPostRoute)); //post for signup
