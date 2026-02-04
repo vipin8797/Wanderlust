@@ -28,7 +28,13 @@ const userRoutes = require('./routes/userRoutes');
 //mongoose connection to DB
 const DB = "wanderlust2";
 async function main() {
-    await mongoose.connect(`${process.env.mongoDbAtlas_url}`);
+    try{
+        await mongoose.connect(`${process.env.mongoDbAtlas_url}`);
+
+    }catch(err){
+        console.log("MongoDB connection failure..");
+        console.log(err);
+    }
 }
 
 
