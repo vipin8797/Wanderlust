@@ -39,24 +39,14 @@ module.exports.joiReviewValidate = (req,res,next) =>{
 
 
 
-//********** Authenticataion middleware ****************** */
-//********** Authenticataion middleware ****************** */
-//middleware to check if user is logged in or not.
-// module.exports.isLoggedIn  = (req,res,next)=>{
-//     if(!req.isAuthenticated()){
-//         req.session.redirectUrl = req.originalUrl; //url user was accessin befor login saved in session
-//                                                    //but session is reset when user logge in then store in in res.locals wtih middlewaer 
-//         req.flash('warning',"You must be logged in for this!");
-//         return res.redirect('/user/login');
-//     }else{
-//         next();
-//     }
-// }
-//updated isLoggedIn middleware.
+//********** Authentication middleware ****************** */
+//********** Authentication middleware ****************** */
+// middleware to check if user is logged in or not.
+// updated isLoggedIn middleware.
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         if (req.method === "GET") {
-            req.session.redirectUrl = req.originalUrl;  // ✅ Sirf GET requests ka redirectUrl save karo
+            req.session.redirectUrl = req.originalUrl;  // ✅ Save redirectUrl only for GET requests
         }
         req.flash("warning", "You must be logged in for this action!");
         return res.redirect("/user/login");
@@ -74,8 +64,8 @@ module.exports.saveRedirectUrl = (req,res,next)=>{
     }
     next()
 }
-//********** Authenticataion middleware ****************** */
-//********** Authenticataion middleware ****************** */
+//********** Authentication middleware ****************** */
+//********** Authentication middleware ****************** */
 
 
 
@@ -86,7 +76,7 @@ module.exports.saveRedirectUrl = (req,res,next)=>{
 //********** Authorization middleware ****************** */
 //********** Authorization middleware ****************** */
 
-//middleware to check owner of listign
+//middleware to check owner of listing
 module.exports.isOwner = async(req,res,next)=>{
     const{id} = req.params;
     const listing = await Listing.findById(id);
@@ -116,7 +106,7 @@ module.exports.isReviewAuthor = async(req,res,next)=>{
 
        
 
-//upload image ke parameters ko chanage karne ke liye taki joivalidate ho sake 
+// modify upload image parameters to allow Joi validation
 module.exports.setListingImagePara = (req, res, next) => {
     
       console.log(req.file);
