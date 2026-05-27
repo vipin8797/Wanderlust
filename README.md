@@ -1,5 +1,12 @@
-# 49-Project-Phase-1-Part-b-
+# Wanderlust - App Development Journey
 
+A full-stack Airbnb-like web application built using Node.js, Express, MongoDB, and EJS. This document serves as a structured development log tracking the implemented phases, features, and library integrations.
+
+---
+
+## Phase 1: Core Boilerplate & Layout Setup
+
+* **Description**: Established the initial application structure, view templates, and layout boilerplate.
 
 | Content                | Created & Practiced | Libraries Used |
 |------------------------|--------------------|----------------|
@@ -10,8 +17,11 @@
 | Styling New Listing    | 27-Jan             |                |
 | Styling Edit Listing   | 27-Jan             |                |  
 
- # 52-Project-Phase-1-Part-c-
-# dev2 added error handling and joiValidation in project.
+---
+
+## Phase 2: Robust Error Handling & Schema Validation
+
+* **Description**: Added server-side schema validations using Joi and robust asynchronous error handlers to prevent application crashes.
 
 | Content                | Created & Practiced | Libraries Used |
 |------------------------|--------------------|----------------|
@@ -24,10 +34,11 @@
 | Joi Schema Validation    | 30-Jan             | Joi            |
 | JoiValidation middleware | 30-Jan             |                |  
 
+---
 
- # 54-Project-Phase-2-Part-c- 
-# dev3 added relational db and their operations.
+## Phase 3: Relational Database & Reviews Features
 
+* **Description**: Implemented one-to-many relationship models allowing users to review listings and handled cascading deletions of associated reviews.
 
 | Content                | Created & Practiced | Libraries Used |
 |------------------------|--------------------|----------------|
@@ -40,9 +51,11 @@
 | Deleting Reviews rel   | 31-Jan             |                |
 | Deleting Listing rel   | 31-Jan             |                |  
 
+---
 
-# 55-Project-Phase-2-Part-b-
-# dev4 set ExpressRouter to add listings and review routes in separate folder, router is prebuilt in Express.
+## Phase 4: Express Router & Cookie Parsing
+
+* **Description**: Restructured the monolithic routing structure using Express Router and integrated cookie parsers.
 
 | Content                      | Created & Practiced | Libraries Used |
 |------------------------------|--------------------|----------------|
@@ -54,11 +67,12 @@
 | Sending Cookies              | 4-Feb             | Cookie-Parser  |  
 | Cookie Parser                | 4-Feb             |                |
 |Signed Cookies                | 4-Feb             |                |  
-  
 
-# 56-Project-Phase-2-Part-c-
-# dev5 implements Express-Sessions and connect-flash messages later used for authentication.
+---
 
+## Phase 5: Express Sessions & Flash Notifications
+
+* **Description**: Integrated stateful server-side sessions using express-session and temporary alerts with connect-flash.
 
 | Content                      | Created & Practiced | Libraries Used |
 |------------------------------|--------------------|----------------|
@@ -71,12 +85,15 @@
 | Cookie in sessions           | 5-Feb             |Express-Sessions|
 |implementing flash in proj    | 5-Feb             |                |
 |including flash.ejs in boilerplate.ejs| 5-Feb     |                |  
-  
 
- # 57. Project- Phase 2 (Part d)
- # dev6 branch added passport authentication.
- | Content                | Created & Practiced | Libraries Used |
-|------------------------      |--------------------|----------------|
+---
+
+## Phase 6: Passport.js Authentication Setup
+
+* **Description**: Added robust authentication, passwords hashing, and local strategies using Passport.js.
+
+| Content                | Created & Practiced | Libraries Used |
+|------------------------|--------------------|----------------|
 | How pass stored              | 6-Feb             | Mongoose       |
 | Hashing & Salting            | 6-Feb             | Method_override|
 | Passport                     | 6-Feb             | Express        |
@@ -87,13 +104,15 @@
 | Login Route                  | 6-Feb             | Passport        |
 |                              |                   |Passport-locals  | 
 |                              |                    |Passport-locals-mongoose |
-  
 
-# 58. Project- Phase 2 (Part e)
-# dev7 branch added  authorization
+---
+
+## Phase 7: Granular User Authorization
+
+* **Description**: Protected critical create, update, and delete actions behind ownership-checking middleware.
 
 | Content                | Created & Practiced | Libraries Used |
-|------------------------      |--------------------|----------------|
+|------------------------|--------------------|----------------|
 | connecting Login Route       | 8-Feb             | Mongoose       |
 | LogOut User                  | 8-Feb             | Method_override|
 | Login after SignUp           | 8-Feb             | Express        |
@@ -105,8 +124,12 @@
 |                              |                   |Passport-locals  | 
 |                              |                   |Passport-locals-mongoose |
 
+---
 
-# 59. Project- Phase 3 (Part a) 
+## Phase 8: MVC Architecture & Cloud Storage Integration
+
+* **Description**: Refactored listing logic to follow clean MVC structure and integrated Multer with Cloudinary for handling file uploads.
+
 | Content             | Created & Practiced | Libraries Used                       |
 |----------------------|--------------------|--------------------------------------|
 | MVC Model            | 10-Feb             | Mongoose                              |
@@ -121,8 +144,11 @@
 | Save Listing in Mongo| 10-Feb             | -                                     |
 | Display Image        | 10-Feb             | -   
 
+---
 
-# dev8 implements image Preview in Edit.ejs file and Map for Each Listing.
+## Phase 9: Image Editing & Dynamic Maps Integration
+
+* **Description**: Added image thumbnail previews for listings editing and integrated location coordinates with geocoding for interactive maps.
 
 | Content               | Created & Practiced | Libraries Used                |
 |-----------------------|--------------------|------------------------------|
@@ -138,4 +164,5 @@
 |                       |                    | Passport-locals-mongoose      |
 |                       |                    | unknown                       |
 |                       |                    | unknown                       |
+
 
