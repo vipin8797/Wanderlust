@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-//listing Joi Schema.
+// Listing Joi validation schema
 const listingJoiSchema = Joi.object({
     listing: Joi.object({
         title: Joi.string().required().messages({
@@ -16,10 +16,7 @@ const listingJoiSchema = Joi.object({
             url: Joi.string().uri().allow("").default("https://plus.unsplash.com/premium_photo-1669748157617-a3a83cc8ea23?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2VhJTIwYmVhY2h8ZW58MHx8MHx8fDA%3D").messages({
                 "string.uri": "Invalid image URL"
             })
-            
         }).default({}),
-        
-        
         price: Joi.number().min(0).required().messages({
             "number.base": "Price must be a number",
             "number.min": "Price must be a positive value",
@@ -36,29 +33,21 @@ const listingJoiSchema = Joi.object({
     }).required()
 });
 
-
-
-
-//Review Joi Schema.
+// Review Joi validation schema
 const reviewJoiSchema = Joi.object({
     review: Joi.object({
-        comment: Joi.string().required(),
-        rating: Joi.number().min(0).max(5).required(),
-        created_At: Joi.date().default(() => new Date()), // Correct way: Only the function
+        comment: Joi.string().required().messages({
+            "string.empty": "Comment is required",
+            "any.required": "Comment is required"
+        }),
+        rating: Joi.number().min(0).max(5).required().messages({
+            "number.base": "Rating must be a number",
+            "number.min": "Rating must be at least 0",
+            "number.max": "Rating cannot exceed 5",
+            "any.required": "Rating is required"
+        }),
+        created_At: Joi.date().default(() => new Date())
     }).required()
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = {listingJoiSchema,reviewJoiSchema};
+module.exports = { listingJoiSchema, reviewJoiSchema };
