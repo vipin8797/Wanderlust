@@ -13,7 +13,7 @@ module.exports.reviewPostRoute = async (req, res, next) => {
         rating: review.rating,
         created_At: Date.now(),
       });
-      newReview.auther = req.user._id;
+      newReview.author = req.user._id;
       await newReview.save();
       // console.log(newReview);
       listing.reviews.push(newReview);
