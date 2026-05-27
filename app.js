@@ -50,7 +50,7 @@ app.engine('ejs', engine); //Using ejsMate in oure porject
 const store = MongoStore.create({
     mongoUrl:process.env.mongoDbAtlas_url,
     crypto:{
-        secrete:process.env.SECRET,
+        secret:process.env.SECRET,
         touchAfter:24*3600,
     }
 })
