@@ -3,27 +3,27 @@ if(process.env.NODE_ENV != 'production'){ // to store cloud credentials.
 }
 
 
-//Requiring dependencies
+// Requiring dependencies
 const express = require('express');
-const mongoose = require('mongoose'); //mongoose for MongoDB
-const path = require('path');  //Path for ejs templates
-const methodOverride = require('method-override'); //method override fot put,patch,delete req
-const Listing = require('./models/listing'); //Our Listing Model
-engine = require('ejs-mate'); //ejsMate for boilerplate layout
-const ExpressError = require('./utils/ExpressError'); //ExpressError for custom Error class
-const wrapAsync = require('./utils/wrapAsync'); //wrapAsync for default erro handling minddleware
-const {listingJoiSchema, reviewJoiSchema} = require('./joiSchema');// listingJoiSchema for joi validation.
-const Review = require('./models/reviews'); //Review model
-const listingRoutes = require('./routes/listingRoutes');//listings routes
-const reviewRoutes = require('./routes/reviewRoutes'); //reviews routes
-const session = require('express-session'); //express sessions for authentication and flash-messages.
-const MongoStore = require('connect-mongo'); //connect-mongo to store sessions in mongoAtlas
-const flash = require('connect-flash'); // to flash succes and failure messages
+const mongoose = require('mongoose'); // mongoose for MongoDB
+const path = require('path');  // Path for EJS templates
+const methodOverride = require('method-override'); // method-override for PUT, PATCH, and DELETE requests
+const Listing = require('./models/listing'); // Listing Model
+const engine = require('ejs-mate'); // ejs-mate for boilerplate layout
+const ExpressError = require('./utils/ExpressError'); // ExpressError custom class
+const wrapAsync = require('./utils/wrapAsync'); // wrapAsync utility for async error handling
+const { listingJoiSchema, reviewJoiSchema } = require('./joiSchema'); // Joi schemas validation
+const Review = require('./models/reviews'); // Review model
+const listingRoutes = require('./routes/listingRoutes'); // Listings routes
+const reviewRoutes = require('./routes/reviewRoutes'); // Reviews routes
+const session = require('express-session'); // express-session for auth and flash alerts
+const MongoStore = require('connect-mongo'); // connect-mongo to store sessions in MongoDB Atlas
+const flash = require('connect-flash'); // connect-flash for temporary notification messages
 
-const passport = require('passport'); //passport for authentication.
-const LocalStrategy = require('passport-local'); // passport-local for local strategy
-const User = require('./models/user');// User Schema with inbuild passport-local-mongoose functions.
-const userRoutes = require('./routes/userRoutes');
+const passport = require('passport'); // passport for authentication
+const LocalStrategy = require('passport-local'); // passport-local strategy
+const User = require('./models/user'); // User Model with passport integration
+const userRoutes = require('./routes/userRoutes'); // User authentication routes
 
 //mongoose connection to DB
 const DB = "wanderlust2";
