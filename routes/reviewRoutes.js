@@ -7,7 +7,7 @@ const ExpressError = require("../utils/ExpressError"); //ExpressError for custom
 const wrapAsync = require('../utils/wrapAsync'); //wrapAsync for default erro handling minddleware
 const {listingJoiSchema, reviewJoiSchema} = require('../joiSchema');// listingJoiSchema for joi validation.
 const methodOverride = require('method-override'); //method override fot put,patch,delete req
-const {joiReviewValidate,joiListingValidate,isLoggedIn,isReviewAuther} = require('../middleware');
+const {joiReviewValidate,joiListingValidate,isLoggedIn,isReviewAuthor} = require('../middleware');
 //using depedencies
 router.use(methodOverride('_method')); //method overide
 //ReviewRoutes Logics
@@ -26,7 +26,7 @@ router.post('/',isLoggedIn,joiReviewValidate, wrapAsync(reviewPostRoute,));
 
 
  //Review Delete Route
-router.delete('/:reviewId',isLoggedIn,isReviewAuther,wrapAsync(destroyReview));   
+router.delete('/:reviewId',isLoggedIn,isReviewAuthor,wrapAsync(destroyReview));   
     
 
     module.exports = router;
