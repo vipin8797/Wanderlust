@@ -1,28 +1,19 @@
-//Requiring depedencies
-const Listing = require('../models/listing'); //Our Listing Model
-
-
-
-
+// Requiring dependencies
+const Listing = require('../models/listing'); // Listing Model
 
 module.exports.indexGetRoute = async (req, res) => {
-
     const allListings = await Listing.find({});
     res.render('listings/index.ejs', { allListings });
-
-}
-
+};
 
 module.exports.newGetRoute = (req, res) => {
     res.render('listings/new.ejs');
 };
 
-
 module.exports.newPostRoute = async (req, res, next) => {
     const { listing } = req.body;
     const newListing = new Listing(listing);
     newListing.owner = req.user._id;    
-    // console.log(newListing);
     await newListing.save();
     req.flash('success', "New Listing Created!");
     res.redirect('/listings');
