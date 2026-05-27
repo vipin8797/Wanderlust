@@ -99,11 +99,11 @@ module.exports.isOwner = async(req,res,next)=>{
 }
  
 
-//middleware to check auther of review
-module.exports.isReviewAuther = async(req,res,next)=>{
+//middleware to check author of review
+module.exports.isReviewAuthor = async(req,res,next)=>{
     const{id,reviewId} = req.params;
     const review = await Review.findById(reviewId);
-    if(!res.locals.currUser._id.equals(review.auther._id)){
+    if(!res.locals.currUser._id.equals(review.author._id)){
         req.flash('warning',"You don't have permission for this!");
         res.redirect(`/listings/${id}`);
     }else{
