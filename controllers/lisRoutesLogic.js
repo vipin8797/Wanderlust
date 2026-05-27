@@ -35,11 +35,13 @@ module.exports.showGetRoute = async (req, res) => {
     const { id } = req.params;
 
     const listing = await Listing.findById(id)
-    .populate({
-        path:'reviews',
-        populate:{
-            path:'auther'
-            ,},}).populate('owner');
+        .populate({
+            path: 'reviews',
+            populate: {
+                path: 'author'
+            }
+        })
+        .populate('owner');
     // console.log(listing);
     res.render('listings/show.ejs', { listing });
 };
